@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Users = require("../models/users");
+const Users = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const registrationCred = require("../middleware/registrationCred");
@@ -8,7 +8,7 @@ const {
   useableUserData,
   generateAccessToken,
   generateRefreshToken,
-} = require("../middleware/authFunction");
+} = require("../middleware/auth");
 const validateCookie = require("../middleware/validateCookie");
 
 // custom middleware
