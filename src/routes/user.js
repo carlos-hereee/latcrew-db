@@ -6,10 +6,11 @@ const registrationCred = require("../middleware/registrationCred");
 const authenticate = require("../middleware/authenticate");
 const {
   useableUserData,
-  generateAccessToken,
-  generateRefreshToken,
+  genAccessToken,
+  genRefreshToken,
 } = require("../middleware/auth");
 const validateCookie = require("../middleware/validateCookie");
+const { cookieName } = require("../../config.env");
 
 // custom middleware
 const validateUser = [authenticate, validateCookie];
@@ -42,9 +43,9 @@ router.post("/register", registrationCred, async (req, res) => {
   user.isOnline = true;
   try {
     const newUser = await new Users(user).save();
-    const refreshToken = generateRefreshToken(newUser);
-    const accessToken = generateAccessToken(newUser);
-    res.cookie("secret-cookie", refreshToken, { httpOnly: true });
+    const refreshToken = genRefreshToken(newUser);
+    const accessToken = genAccessToken(newUser);
+    res.cookie(cookieName, refreshToken, { httpOnly: true });
     res.status(200).json({ user: useableUserData(newUser), accessToken });
   } catch (e) {
     res.status(400).json({ message: "Failed to make user" });
@@ -55,11 +56,11 @@ router.post("/login", async (req, res) => {
   try {
     const user = await Users.findOne({ username });
     if (bcrypt.compareSync(password, user.password)) {
-      const refreshToken = generateRefreshToken(user);
-      const accessToken = generateAccessToken(user);
+      const refreshToken = genRefreshToken(user);
+      const accessToken = genAccessToken(user);
       changeOnline(true, user._id);
       const data = await Users.findOne({ username });
-      res.status(200).cookie("secret-cookie", refreshToken, { httpOnly: true });
+      res.status(200).cookie(cookieName, refreshToken, { httpOnly: true });
       res.json({ user: useableUserData(data), accessToken: accessToken });
     } else {
       res.status(404).json({ message: "username or password are invalid" });
@@ -71,9 +72,9 @@ router.post("/login", async (req, res) => {
 router.post("/refresh-token", validateUser, async (req, res) => {
   const { user } = req;
   // token is valid and send an access token
-  const refreshToken = generateRefreshToken(user);
-  const accessToken = generateAccessToken(user);
-  res.cookie("secret-cookie", refreshToken, { httpOnly: true }).status(200);
+  const refreshToken = genRefreshToken(user);
+  const accessToken = genAccessToken(user);
+  res.cookie(cookieName, refreshToken, { httpOnly: true }).status(200);
   res.json({ accessToken: accessToken, user: useableUserData(user) });
 });
 router.delete("/logout", validateUser, async (req, res) => {
@@ -82,7 +83,7 @@ router.delete("/logout", validateUser, async (req, res) => {
     if (req.session) {
       req.session.destroy();
     }
-    res.clearCookie("secret-cookie");
+    res.clearCookie(cookieName);
     res.status(202).json({ message: "successful logout" });
   } catch {
     res.status(400).json({ message: "error loggin out" });
