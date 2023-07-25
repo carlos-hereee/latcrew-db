@@ -71,6 +71,7 @@ router.post("/login", async (req, res) => {
 });
 router.post("/refresh-token", validateUser, async (req, res) => {
   const { user } = req;
+  console.log("user", user);
   // token is valid and send an access token
   const refreshToken = genRefreshToken(user);
   const accessToken = genAccessToken(user);

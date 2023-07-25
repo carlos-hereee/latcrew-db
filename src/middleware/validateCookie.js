@@ -4,6 +4,7 @@ const { refreshTokenSecret, cookieName } = require("../../config.env");
 
 module.exports = async (req, res, next) => {
   const cookie = req.cookies[cookieName];
+  console.log("cookie", cookie);
   if (!cookie) {
     return res.status(400).json({ accessToken: "" });
   }
