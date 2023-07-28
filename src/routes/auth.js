@@ -74,6 +74,9 @@ router.post("/refresh-token", validateUser, async (req, res) => {
   res.cookie(cookieName, refreshToken, { httpOnly: true }).status(200);
   res.json({ accessToken: accessToken, user: useableUserData(user) });
 });
+router.post("/session", async (req, res) => {});
+router.delete("/session", async (req, res) => {});
+
 router.delete("/logout", validateUser, async (req, res) => {
   try {
     changeOnline(false, req.user._id);

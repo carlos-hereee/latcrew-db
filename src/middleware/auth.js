@@ -26,10 +26,4 @@ const genRefreshToken = (user) => {
   });
 };
 
-module.exports = {
-  useableUserData,
-  generateAccessToken: genAccessToken,
-  generateRefreshToken: genRefreshToken,
-  refreshTokenSecret,
-  accessTokenSecret,
-};
+module.exports = { useableUserData, genAccessToken, genRefreshToken };
