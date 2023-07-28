@@ -1,10 +1,11 @@
-const userRoute = require("./user");
+const { port } = require("../../config.env");
+const authRoute = require("./auth");
 
-const routes = (app) => {
+module.exports = (app) => {
   // initial test route
   app.get("/", (req, res) => {
     res.status(200).json({ message: `api is running on ${port}` });
   });
-  app.use("/users/", userRoute);
+  // authentication route for login and access/refresh tokens
+  app.use("/auth/", authRoute);
 };
-module.exports = routes;

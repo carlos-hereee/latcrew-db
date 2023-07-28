@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Users = require("../db/mongoose/schema/user");
+const Users = require("../db/schema/user");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const registrationCred = require("../middleware/registrationCred");
@@ -14,10 +14,6 @@ const { cookieName } = require("../../config.env");
 
 // custom middleware
 const validateUser = [authenticate, validateCookie];
-
-const changeOnline = async (isOnline, _id) => {
-  await Users.updateOne({ _id }, { $set: { isOnline } });
-};
 
 router.get("/", authenticate, async (req, res) => {
   res.status(200).json(useableUserData(req.user));
