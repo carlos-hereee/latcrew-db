@@ -3,6 +3,7 @@ const Users = require("../db/schema/user");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const registrationCred = require("../middleware/registrationCred");
+const requireUser = require("../middleware/requireUser");
 
 // custom middleware
 
@@ -56,17 +57,11 @@ router.post("/login", async (req, res) => {
     res.status(400).json({ message: "User does not exist" });
   }
 });
-router.post("/refresh-token", async (req, res) => {
-  // const { user } = req;
-  console.log("user", req.user);
-  // token is valid and send an access token
-  // const refreshToken = genRefreshToken(user);
-  // const accessToken = genAccessToken(user);
-  // res.cookie(cookieName, refreshToken, { httpOnly: true }).status(200);
-  // res.json({ accessToken: accessToken, user: user });
+router.post("/refresh-token", requireUser, async (req, res) => {
+  res.send(req.user);
 });
 
-router.delete("/logout", async (req, res) => {
+router.delete("/logout", requireUser, async (req, res) => {
   try {
     changeOnline(false, req.user._id);
     if (req.session) {
