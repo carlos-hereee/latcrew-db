@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const Users = require("../db/schema/user");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const registrationCred = require("../middleware/registrationCred");
 const requireUser = require("../middleware/requireUser");
+const invalidateSession = require("../utils/invalidateSession");
 
 // custom middleware
 
@@ -13,10 +13,10 @@ router.get("/", async (req, res) => {
 router.get("/:uid", async (req, res) => {
   const { uid } = req.params;
   try {
-    const user = await Users.findOne({ uid });
-    if (user) {
-      res.status(200).json({ message: user });
-    }
+    // const user = await Users.findOne({ uid });
+    // if (user) {
+    //   res.status(200).json({ message: user });
+    // }
   } catch {
     res.status(404).json({
       message: "Couldn't find user with that id",
@@ -42,7 +42,7 @@ router.post("/register", registrationCred, async (req, res) => {
 router.post("/login", async (req, res) => {
   let { username, password } = req.body;
   try {
-    const user = await Users.findOne({ username });
+    // const user = await Users.findOne({ username });
     if (bcrypt.compareSync(password, user.password)) {
       // const refreshToken = genRefreshToken(user);
       // const accessToken = genAccessToken(user);
@@ -62,15 +62,12 @@ router.post("/refresh-token", requireUser, async (req, res) => {
 });
 
 router.delete("/logout", requireUser, async (req, res) => {
-  try {
-    changeOnline(false, req.user._id);
-    if (req.session) {
-      req.session.destroy();
-    }
-    res.status(202).json({ message: "successful logout" });
-  } catch {
-    res.status(400).json({ message: "error loggin out" });
-  }
+  //   changeOnline(false, req.user._id);
+  const session = invalidateSession(req.user.sessionId);
+  // reset cookies
+  res.cookie("accessToken", "", { maxAge: 0, httpOnly: true });
+  res.cookie("refreshToken", "", { maxAge: 0, httpOnly: true });
+  return res.send(session);
 });
 
 module.exports = router;

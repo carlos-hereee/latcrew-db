@@ -1,4 +1,4 @@
-const getSession = require("../controllers/getSession");
+const getSession = require("../utils/getSession");
 const signJWT = require("../utils/signJWT");
 const verifyJWT = require("../utils/verifyJWT");
 

@@ -1,7 +1,7 @@
 const getSession = require("./getSession");
 
-module.exports = async (sessionId) => {
-  const session = await getSession({ uid: sessionId });
+module.exports = async (uid) => {
+  const session = await getSession({ uid });
   if (session) {
     session.isValid = false;
   }
