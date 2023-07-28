@@ -9,5 +9,10 @@ module.exports = async (req, res) => {
   }
 
   const session = createSession(email || username);
-  const accessToken = signJWT();
+  const accessToken = signJWT({ email, username, sessionId: session.sessionId }, "5s");
+  const refreshToken = signJWT({ sessionId: session.sessionId }, "30d");
+  // set access token cookie + refresh token cookie
+  res.cookie("accessToken", accessToken, { maxAge: 300000, httpOnly: true });
+  res.cookie("refreshToken", refreshToken, { maxAge: 3.15e10, httpOnly: true });
+  return res.send(session);
 };
