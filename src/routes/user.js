@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Users = require("../models/user");
+const Users = require("../db/mongoose/schema/user");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const registrationCred = require("../middleware/registrationCred");

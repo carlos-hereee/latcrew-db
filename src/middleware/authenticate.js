@@ -3,7 +3,6 @@ const { accessTokenSecret, cookieName } = require("../../config.env");
 
 module.exports = (req, res, next) => {
   const authorization = req.headers.authorization;
-  console.log("authorization", authorization);
   if (!authorization) {
     // no authorization header
     return res.status(400).json({ message: "you need a token authorization" });

@@ -1,4 +1,4 @@
-const Users = require("../models/user");
+const Users = require("../db/mongoose/schema/user");
 
 module.exports = async (req, res, next) => {
   const { username, email } = req.body;

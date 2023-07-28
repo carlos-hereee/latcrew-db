@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Users = require("../models/user");
+const Users = require("../db/mongoose/schema/user");
 const { refreshTokenSecret, cookieName } = require("../../config.env");
 
 module.exports = async (req, res, next) => {
