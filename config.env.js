@@ -9,4 +9,6 @@ module.exports = {
   cookieName: process.env.COOKIE_NAME,
   mongooseUser: process.env.MONGOOSE_USERNAME,
   mongoosePassword: process.env.MONGOOSE_PASSWORD,
+  jwtPrivateKey: process.env.JWT_PRIVATE_KEY,
+  jwtPublicKey: process.env.JWT_PUBLIC_KEY,
 };
