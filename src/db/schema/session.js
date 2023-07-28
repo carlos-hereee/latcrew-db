@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 const sessionSchema = new Schema(
   {
     uid: { type: String, require: true, unique: true },
-    email: { type: String, require: true },
     isValid: { type: Boolean, require: true },
+    email: { type: String },
+    username: { type: String },
   },
   { timestamps: true }
 );

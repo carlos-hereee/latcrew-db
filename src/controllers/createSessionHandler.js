@@ -1,4 +1,4 @@
-const getUser = require("../db/model/getUser");
+const getUser = require("../db/model/users/getUser");
 const msg = require("../data/error.message.json");
 
 module.exports = async (req, res) => {

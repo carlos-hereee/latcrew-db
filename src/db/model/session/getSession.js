@@ -1,4 +1,4 @@
-const Session = require("../schema/session");
+const Session = require("../../schema/session");
 
 module.exports = async ({ uid, email }) => {
   if (uid) {
@@ -6,5 +6,8 @@ module.exports = async ({ uid, email }) => {
   }
   if (email) {
     return await Session.find({ email });
+  }
+  if (username) {
+    return await Session.find({ username });
   }
 };
