@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require("uuid");
 const registrationCred = require("../middleware/registrationCred");
 const requireUser = require("../middleware/requireUser");
 const invalidateSession = require("../utils/invalidateSession");
+const getUser = require("../db/model/users/getUser");
+const isPasswordMatch = require("../utils/isPasswordMatch");
+const msg = require("../data/error.message.json");
 
 // custom middleware
 
@@ -35,26 +38,22 @@ router.post("/register", registrationCred, async (req, res) => {
     const accessToken = genAccessToken(newUser);
     res.cookie(cookieName, refreshToken, { httpOnly: true });
     res.status(200).json({ user: newUser, accessToken });
-  } catch (e) {
+  } catch (error) {
     res.status(400).json({ message: "Failed to make user" });
   }
 });
 router.post("/login", async (req, res) => {
-  let { username, password } = req.body;
   try {
-    // const user = await Users.findOne({ username });
-    if (bcrypt.compareSync(password, user.password)) {
-      // const refreshToken = genRefreshToken(user);
-      // const accessToken = genAccessToken(user);
-      // changeOnline(true, user._id);
-      // const data = await Users.findOne({ username });
-      // res.status(200).cookie(cookieName, refreshToken, { httpOnly: true });
-      // res.json({ user: data, accessToken: accessToken });
+    const { username, password, email } = req.body;
+    const user = await getUser({ username, email });
+    const { isMatch } = isPasswordMatch(password, user.password);
+    if (isMatch) {
+      // res.status(200).send(user);
     } else {
-      res.status(404).json({ message: "username or password are invalid" });
+      res.status(400).send(msg.invalidEmailOrPassword);
     }
-  } catch {
-    res.status(400).json({ message: "User does not exist" });
+  } catch (error) {
+    res.status(404).send(msg.userNotFound);
   }
 });
 router.post("/refresh-token", requireUser, async (req, res) => {

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const toLower = require("../../utils/lowerCase");
 
-const toLower = (str) => str.toLoweCase();
 const userSchema = new Schema(
   {
     uid: { type: String, require: true, unique: true },
