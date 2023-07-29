@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const { v4 } = require("uuid");
-const registrationCred = require("../middleware/registrationCred");
+const validateRegistration = require("../middleware/validateRegistration");
 const requireUser = require("../middleware/requireUser");
 const invalidateSession = require("../utils/invalidateSession");
 const getUser = require("../db/model/users/getUser");
@@ -30,8 +30,9 @@ router.get("/:uid", requireUser, async (req, res) => {
     });
   }
 });
-router.post("/register", registrationCred, async (req, res) => {
+router.post("/register", validateRegistration, async (req, res) => {
   try {
+    console.log("req.credentials", req.credentials);
     // const newUser = await new Users(user).save();
     // const refreshToken = genRefreshToken(newUser);
     // const accessToken = genAccessToken(newUser);

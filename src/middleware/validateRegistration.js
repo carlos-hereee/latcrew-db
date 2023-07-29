@@ -6,15 +6,16 @@ const msg = require("../data/error.message.json");
 module.exports = async (req, res, next) => {
   const { username, email, password } = req.body;
   const user = await getUser({ username, email });
-  if (user) {
-    res.status(400).send(msg.userAlreadyExist);
+  if (user.length > 0) {
+    console.log("user", user);
+    return res.status(400).send(msg.userAlreadyExist);
   } else {
     req.credentials = {
       username,
       email,
       password,
       nickname: username,
-      hashPassword: bcrypt.hashSync(password, 14),
+      hashPassword: bcrypt.hashSync(password, 20),
       uid: v4(),
       isOnline: true,
     };
