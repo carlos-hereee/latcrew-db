@@ -11,6 +11,7 @@ const saveSession = require("../db/model/session/saveSession");
 const signJWT = require("../utils/signJWT");
 const storeCookies = require("../utils/storeCookies");
 const resetCookies = require("../utils/resetCookies");
+const saveUser = require("../db/model/users/saveUser");
 
 // custom middleware
 
@@ -20,24 +21,18 @@ router.get("/", requireUser, async (req, res) => {
 router.get("/:uid", requireUser, async (req, res) => {
   const { uid } = req.params;
   try {
-    // const user = await Users.findOne({ uid });
-    // if (user) {
-    //   res.status(200).json({ message: user });
-    // }
-  } catch {
-    res.status(404).json({
-      message: "Couldn't find user with that id",
-    });
+    const user = await getUser({ uid });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(msg.userDoesNotExist);
   }
 });
 router.post("/register", validateRegistration, async (req, res) => {
   try {
-    console.log("req.credentials", req.credentials);
-    // const newUser = await new Users(user).save();
-    // const refreshToken = genRefreshToken(newUser);
-    // const accessToken = genAccessToken(newUser);
-    // res.cookie(cookieName, refreshToken, { httpOnly: true });
-    // res.status(200).json({ user: newUser, accessToken });
+    const user = await saveUser(req.credentials);
+    const session = await saveSession({ username: user.username });
+    const { accessToken } = storeCookies(username, session.uid);
+    res.status(200).send(user, accessToken);
   } catch (error) {
     res.status(400).json({ message: "Failed to make user" });
   }
@@ -50,8 +45,8 @@ router.post("/login", async (req, res) => {
     const { isMatch } = isPasswordMatch(password, user.password);
     if (isMatch) {
       const session = await saveSession({ username });
-      storeCookies(username, session.uid);
-      res.status(200).send(session);
+      const { accessToken } = storeCookies(username, session.uid);
+      res.status(200).send({ user, accessToken });
     } else res.status(400).send(msg.invalidEmailOrPassword);
   } else res.status(404).send(msg.userDoesNotExist);
 });
