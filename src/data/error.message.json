@@ -1,6 +1,6 @@
 {
   "invalidEmailOrPassword": "Invalid email or password",
-  "userNotFound": "Could not find user",
-  "userDoesNotExist": "Could not find user, because user does not exists",
+  "userNotFound": "User not found",
+  "userDoesNotExist": "User does not exists",
   "userAlreadyExist": "A user already exists with that username"
 }
