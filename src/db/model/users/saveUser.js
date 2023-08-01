@@ -1,5 +1,6 @@
 const Users = require("../../schema/user");
 
 module.exports = async (payload) => {
-  return await Users.save(payload);
+  const user = new Users(payload);
+  return await user.save();
 };

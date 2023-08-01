@@ -23,4 +23,5 @@ const main = () => {
   routes(app);
 };
 
+// init app
 main();
