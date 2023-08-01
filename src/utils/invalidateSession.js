@@ -1,4 +1,4 @@
-const getSession = require("./getSession");
+const getSession = require("../db/model/session/getSession");
 
 module.exports = async (uid) => {
   const session = await getSession({ uid });

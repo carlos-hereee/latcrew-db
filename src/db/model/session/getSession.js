@@ -1,6 +1,6 @@
 const Session = require("../../schema/session");
 
-module.exports = async ({ uid, email }) => {
+module.exports = async ({ uid, email, username }) => {
   if (uid) {
     return await Session.find({ uid });
   }

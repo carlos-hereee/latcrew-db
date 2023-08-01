@@ -10,6 +10,7 @@ const storeCookies = require("../utils/storeCookies");
 const resetCookies = require("../utils/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
+const getSession = require("../db/model/session/getSession");
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
@@ -31,9 +32,10 @@ router.post("/register", validateRegistration, async (req, res) => {
 });
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const user = await getUser({ username });
+  const [user] = await getUser({ username });
   console.log("user", user);
-  if (user.uid) {
+  console.log("req.user", req.user);
+  if (user) {
     // check if passwords match
     const { isMatch } = isPasswordMatch(password, user.password);
     if (isMatch) {
@@ -44,7 +46,10 @@ router.post("/login", async (req, res) => {
   } else res.status(404).send(msg.userDoesNotExist);
 });
 router.post("/refresh-token", requireUser, async (req, res) => {
-  res.send(req.user);
+  const [user] = await getUser({ username: req.user.username });
+  const session = getSession({ username: user.username });
+  const { accessToken } = storeCookies(res, user.username, session.uid);
+  res.send({ user, accessToken });
 });
 
 router.delete("/logout", requireUser, async (req, res) => {

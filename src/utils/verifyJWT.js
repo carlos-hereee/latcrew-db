@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
-const { jwtPublicKey } = require("../../config.env");
+const { jwtPrivateKey } = require("../../config.env");
 
 module.exports = (token) => {
   try {
-    const decoded = jwt.verify(token, jwtPublicKey);
+    const decoded = jwt.verify(token, jwtPrivateKey);
     return { payload: decoded, expired: false };
   } catch (error) {
     return { payload: null, expired: error.message.includes("jwt expired") };
