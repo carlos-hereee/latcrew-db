@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
     email: email || username,
     nickname: username || email,
     password,
-    hashPassword: bcrypt.hashSync(password, 20),
+    hashPassword: bcrypt.hashSync(password, 10),
     uid: v4(),
     isOnline: true,
   };

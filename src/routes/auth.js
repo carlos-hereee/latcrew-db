@@ -26,7 +26,7 @@ router.get("/:uid", requireUser, async (req, res) => {
 router.post("/register", validateRegistration, async (req, res) => {
   const user = await saveUser(req.credentials);
   const session = await saveSession({ username: user.username });
-  const { accessToken } = storeCookies(user.username, session.uid);
+  const { accessToken } = storeCookies(res, user.username, session.uid);
   res.status(200).send({ user, accessToken });
 });
 router.post("/login", async (req, res) => {
@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
     const { isMatch } = isPasswordMatch(password, user.password);
     if (isMatch) {
       const session = await saveSession({ username });
-      const { accessToken } = storeCookies(username, session.uid);
+      const { accessToken } = storeCookies(res, username, session.uid);
       res.status(200).send({ user, accessToken });
     } else res.status(400).send(msg.invalidEmailOrPassword);
   } else res.status(404).send(msg.userDoesNotExist);
@@ -50,7 +50,7 @@ router.post("/refresh-token", requireUser, async (req, res) => {
 router.delete("/logout", requireUser, async (req, res) => {
   //   changeOnline(false, req.user._id);
   const session = invalidateSession(req.user.sessionId);
-  resetCookies(); // reset cookies
+  resetCookies(res); // reset cookies
   res.send(session);
 });
 
