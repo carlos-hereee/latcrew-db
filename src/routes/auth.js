@@ -27,12 +27,13 @@ router.get("/:uid", requireUser, async (req, res) => {
 router.post("/register", validateRegistration, async (req, res) => {
   const user = await saveUser(req.credentials);
   const session = await saveSession({ username: user.username });
+  // console.log("user, session", user, session);
   const { accessToken } = storeCookies(res, user.username, session.uid);
   res.status(200).send({ user, accessToken });
 });
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const [user] = await getUser({ username });
+  const user = await getUser({ username });
   console.log("user", user);
   console.log("req.user", req.user);
   if (user) {
@@ -46,10 +47,13 @@ router.post("/login", async (req, res) => {
   } else res.status(404).send(msg.userDoesNotExist);
 });
 router.post("/refresh-token", requireUser, async (req, res) => {
-  const [user] = await getUser({ username: req.user.username });
-  const session = getSession({ username: user.username });
-  const { accessToken } = storeCookies(res, user.username, session.uid);
-  res.send({ user, accessToken });
+  const user = await getUser({ username: req.user.username });
+  console.log("user", user, req.user);
+  if (user) {
+    console.log("user", user);
+    const { accessToken } = storeCookies(res, user.username, req.user.sessionId);
+    res.send({ user, accessToken });
+  } else res.status(400).send(msg.userDoesNotExist);
 });
 
 router.delete("/logout", requireUser, async (req, res) => {

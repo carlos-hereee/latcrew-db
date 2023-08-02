@@ -8,6 +8,6 @@ module.exports = async ({ username, email, uid }) => {
     return await Users.find({ email });
   }
   if (username) {
-    return await Users.find({ $or: [{ username, email: username }] });
+    return await Users.find({ username });
   }
 };
