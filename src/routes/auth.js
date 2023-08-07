@@ -6,11 +6,10 @@ const getUser = require("../db/model/users/getUser");
 const isPasswordMatch = require("../utils/isPasswordMatch");
 const msg = require("../data/error.message.json");
 const saveSession = require("../db/model/session/saveSession");
-const storeCookies = require("../utils/storeCookies");
-const resetCookies = require("../utils/resetCookies");
+const storeCookies = require("../utils/cookies/storeCookies");
+const resetCookies = require("../utils/cookies/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
-const getSession = require("../db/model/session/getSession");
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
@@ -33,27 +32,27 @@ router.post("/register", validateRegistration, async (req, res) => {
 });
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const user = await getUser({ username });
-  console.log("user", user);
-  console.log("req.user", req.user);
-  if (user) {
-    // check if passwords match
-    const { isMatch } = isPasswordMatch(password, user.password);
-    if (isMatch) {
-      const session = await saveSession({ username });
-      const { accessToken } = storeCookies(res, username, session.uid);
-      res.status(200).send({ user, accessToken });
-    } else res.status(400).send(msg.invalidEmailOrPassword);
-  } else res.status(404).send(msg.userDoesNotExist);
+  const [user] = await getUser({ username });
+  if (!user) {
+    return res.status(404).send(msg.userDoesNotExist);
+  }
+  // check if passwords match
+  const { error } = isPasswordMatch(password, user.password);
+  if (error) {
+    return res.status(error.status).send(error);
+  }
+  const session = await saveSession({ username });
+  const { accessToken } = storeCookies(res, username, session.uid);
+  return res.status(200).send({ user, accessToken });
 });
 router.post("/refresh-token", requireUser, async (req, res) => {
+  console.log("\n*** Req.user", req.user);
   const user = await getUser({ username: req.user.username });
-  console.log("user", user, req.user);
   if (user) {
-    console.log("user", user);
     const { accessToken } = storeCookies(res, user.username, req.user.sessionId);
-    res.send({ user, accessToken });
-  } else res.status(400).send(msg.userDoesNotExist);
+    return res.status(200).send({ user, accessToken });
+  }
+  return res.status(400).send(msg.userDoesNotExist);
 });
 
 router.delete("/logout", requireUser, async (req, res) => {
