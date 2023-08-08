@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
   const { hashedPassword, uid } = user;
   // verify previous password
   const { error } = isPasswordMatch({ password: oldPassword, hashedPassword });
-  console.log("error", error);
   if (!error) req.user = user;
   if (error.status === 401 && newPassword) {
     req.credentials = { username, hashedPassword: hashPassword(newPassword, 10), uid };

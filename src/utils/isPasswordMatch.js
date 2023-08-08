@@ -7,8 +7,8 @@ module.exports = ({ password, hashedPassword }) => {
       error: { status: 401, message: msg.hashPasswordNotIncluded },
     };
   }
-  const comparePassword = bcrypt.compareSync(password, hashedPassword);
-  if (!comparePassword) {
+  const isMatching = bcrypt.compareSync(password, hashedPassword);
+  if (!isMatching) {
     return { error: { status: 403, message: msg.invalidEmailOrPassword } };
   }
   return { error: null };
