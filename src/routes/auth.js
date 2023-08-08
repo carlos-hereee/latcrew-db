@@ -5,12 +5,14 @@ const invalidateSession = require("../utils/invalidateSession");
 const getUser = require("../db/model/users/getUser");
 const isPasswordMatch = require("../utils/isPasswordMatch");
 const msg = require("../data/error.message.json");
+const message = require("../data/success.message.json");
 const saveSession = require("../db/model/session/saveSession");
 const storeCookies = require("../utils/cookies/storeCookies");
 const resetCookies = require("../utils/cookies/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
 const validateCredentials = require("../middleware/validateCredentials");
+const updatePassword = require("../db/model/users/updatePassword");
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
@@ -57,11 +59,9 @@ router.post("/refresh-token", requireUser, async (req, res) => {
   return res.status(400).send(msg.userDoesNotExist);
 });
 router.put("/change-password", validateCredentials, async (req, res) => {
-  const { newPassword } = req.body;
-  console.log("req.user", req.user);
-  // let credentials = {};
-  // const pass = await updatePassword(req.user.uid);
-  // console.log("pass", pass);
+  const updatedPassword = await updatePassword(req.credentials.uid, req.credentials);
+  if (updatedPassword.acknowledged) return res.status(200).send(message.passwordChanged);
+  else return res.status(500).send(msg.serverIsDown);
 });
 router.delete("/logout", requireUser, async (req, res) => {
   //   changeOnline(false, req.user._id);

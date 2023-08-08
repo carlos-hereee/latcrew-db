@@ -8,12 +8,13 @@ module.exports = async (req, res, next) => {
   const [user] = await getUser({ username });
   // if user does not exists in db
   if (!user) return res.status(404).send(msg.userDoesNotExist);
-  const { hashedPassword } = user;
+  const { hashedPassword, uid } = user;
   // verify previous password
   const { error } = isPasswordMatch({ password: oldPassword, hashedPassword });
+  console.log("error", error);
   if (!error) req.user = user;
   if (error.status === 401 && newPassword) {
-    req.credentials = { username, hashedPassword: hashPassword(newPassword, 10) };
+    req.credentials = { username, hashedPassword: hashPassword(newPassword, 10), uid };
   }
   if (error.status === 403) {
     return res.status(error.status).send(error);

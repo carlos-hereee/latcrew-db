@@ -8,5 +8,6 @@
   "payloadNotFound": "username and sessionId not included/found in payload",
   "notVerfifed": "could not verify",
   "payloadExpired": "Payload is expired",
-  "missingCredentials": "Missing one or more credentials"
+  "missingCredentials": "Missing one or more credentials",
+  "serverIsDown": "Server is down, try again later."
 }

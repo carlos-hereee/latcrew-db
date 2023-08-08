@@ -1,3 +1,4 @@
 {
-  "payloadFound": "payload found"
+  "payloadFound": "payload found",
+  "passwordChanged": "Successfully updated password, you can now login"
 }
