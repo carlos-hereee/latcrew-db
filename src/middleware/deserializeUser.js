@@ -1,6 +1,6 @@
-const getSession = require("../db/model/session/getSession");
 const verifyJWT = require("../utils/verifyJWT");
 const storeAccessToken = require("../utils/cookies/storeAccessToken");
+const getValidSession = require("../db/model/session/getValidSession");
 
 module.exports = async (req, res, next) => {
   const { accessToken, refreshToken } = req.cookies;
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
       return next();
     }
     // check session
-    const [session] = await getSession({ uid: payload.sessionId });
+    const [session] = await getValidSession({ uid: payload.sessionId });
     // if missing
     if (!session.uid) return next();
     // store new access token

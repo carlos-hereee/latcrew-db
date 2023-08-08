@@ -1,5 +1,5 @@
 {
-  "invalidEmailOrPassword": "Invalid email or password",
+  "invalidEmailOrPassword": "Invalid username/email or password",
   "invalidCredentails": "One or more credential(s) are wrong",
   "userNotFound": "User not found",
   "userDoesNotExist": "User does not exists",

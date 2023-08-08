@@ -3,7 +3,6 @@ const validateRegistration = require("../middleware/validateRegistration");
 const requireUser = require("../middleware/requireUser");
 const invalidateSession = require("../utils/invalidateSession");
 const getUser = require("../db/model/users/getUser");
-const isPasswordMatch = require("../utils/isPasswordMatch");
 const msg = require("../data/error.message.json");
 const message = require("../data/success.message.json");
 const saveSession = require("../db/model/session/saveSession");
@@ -13,7 +12,9 @@ const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
 const validateUser = require("../middleware/validateUser");
 const updatePassword = require("../db/model/users/updatePassword");
-const validateAuth = require("../middleware/validateAuth");
+const validatePassword = require("../middleware/validatePassword");
+
+const authMiddleWare = [validateUser, validatePassword];
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
@@ -34,19 +35,12 @@ router.post("/register", validateRegistration, async (req, res) => {
   const { accessToken } = storeCookies(res, user.username, session.uid);
   res.status(200).send({ user, accessToken });
 });
-router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const [user] = await getUser({ username });
-  if (!user) {
-    return res.status(404).send(msg.userDoesNotExist);
-  }
-  // check if passwords match
-  const { error } = isPasswordMatch({ password, hashedPassword: user.hashedPassword });
-  if (error) {
-    console.log("error", error);
-    return res.status(error.status).send(error.message);
-  }
-  // const session = await saveSession({ username });
+router.post("/login", authMiddleWare, async (req, res) => {
+  console.log("req.credentials", req.user);
+  // if (session.length > 1) {
+  //   console.log("session", session.length);
+  //   console.log("session", session[0]);
+  // }
   // const { accessToken } = storeCookies(res, username, session.uid);
   // return res.status(200).send({ user, accessToken });
 });
@@ -59,7 +53,7 @@ router.post("/refresh-token", requireUser, async (req, res) => {
   }
   return res.status(400).send(msg.userDoesNotExist);
 });
-router.put("/change-password", [validateUser, validateAuth], async (req, res) => {
+router.put("/change-password", authMiddleWare, async (req, res) => {
   const updatedPassword = await updatePassword(req.credentials.uid, req.credentials);
   if (updatedPassword.acknowledged) return res.status(200).send(message.passwordChanged);
   else return res.status(500).send(msg.serverIsDown);
