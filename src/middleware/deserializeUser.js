@@ -1,6 +1,4 @@
 const getSession = require("../db/model/session/getSession");
-const signJWT = require("../utils/signJWT");
-const storeCookies = require("../utils/cookies/storeCookies");
 const verifyJWT = require("../utils/verifyJWT");
 const storeAccessToken = require("../utils/cookies/storeAccessToken");
 

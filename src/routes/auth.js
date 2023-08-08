@@ -10,6 +10,7 @@ const storeCookies = require("../utils/cookies/storeCookies");
 const resetCookies = require("../utils/cookies/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
+const validateCredentials = require("../middleware/validateCredentials");
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
@@ -55,7 +56,13 @@ router.post("/refresh-token", requireUser, async (req, res) => {
   }
   return res.status(400).send(msg.userDoesNotExist);
 });
-
+router.put("/change-password", validateCredentials, async (req, res) => {
+  const { newPassword } = req.body;
+  console.log("req.user", req.user);
+  // let credentials = {};
+  // const pass = await updatePassword(req.user.uid);
+  // console.log("pass", pass);
+});
 router.delete("/logout", requireUser, async (req, res) => {
   //   changeOnline(false, req.user._id);
   const session = invalidateSession(req.user.sessionId);
