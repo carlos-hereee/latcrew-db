@@ -11,8 +11,9 @@ const storeCookies = require("../utils/cookies/storeCookies");
 const resetCookies = require("../utils/cookies/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
-const validateCredentials = require("../middleware/validateCredentials");
+const validateUser = require("../middleware/validateUser");
 const updatePassword = require("../db/model/users/updatePassword");
+const validateAuth = require("../middleware/validateAuth");
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
@@ -58,7 +59,7 @@ router.post("/refresh-token", requireUser, async (req, res) => {
   }
   return res.status(400).send(msg.userDoesNotExist);
 });
-router.put("/change-password", validateCredentials, async (req, res) => {
+router.put("/change-password", [validateUser, validateAuth], async (req, res) => {
   const updatedPassword = await updatePassword(req.credentials.uid, req.credentials);
   if (updatedPassword.acknowledged) return res.status(200).send(message.passwordChanged);
   else return res.status(500).send(msg.serverIsDown);
