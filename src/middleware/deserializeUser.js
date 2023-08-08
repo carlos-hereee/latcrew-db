@@ -11,10 +11,8 @@ module.exports = async (req, res, next) => {
       refreshToken ? "INCLUDED" : "MISSING"
     );
     const { payload, error } = verifyJWT(refreshToken);
-    if (error) {
-      if (error.status === 403) {
-        console.log("**** Error", error.message, "\n\n", "\tpayload: ", payload);
-      }
+    if (error.status === 403) {
+      console.log("**** Error", error.message, "\n\n", "\tpayload: ", payload);
       return next();
     }
     // check session

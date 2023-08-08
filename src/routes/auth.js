@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const validateRegistration = require("../middleware/validateRegistration");
 const requireUser = require("../middleware/requireUser");
-const invalidateSession = require("../utils/invalidateSession");
+const invalidateSession = require("../db/model/session/updateSession");
 const getUser = require("../db/model/users/getUser");
 const msg = require("../data/error.message.json");
 const message = require("../data/success.message.json");
@@ -10,11 +10,13 @@ const storeCookies = require("../utils/cookies/storeCookies");
 const resetCookies = require("../utils/cookies/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
-const validateUser = require("../middleware/validateUser");
 const updatePassword = require("../db/model/users/updatePassword");
+// custom middleware
+const validateUser = require("../middleware/validateUser");
 const validatePassword = require("../middleware/validatePassword");
+const validateSession = require("../middleware/validateSession");
 
-const authMiddleWare = [validateUser, validatePassword];
+const authMiddleWare = [validateUser, validatePassword, validateSession];
 
 router.get("/", requireUser, async (req, res) => {
   res.status(200).send(req.user);
