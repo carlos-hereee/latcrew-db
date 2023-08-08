@@ -3,7 +3,7 @@
   "userNotFound": "User not found",
   "userDoesNotExist": "User does not exists",
   "userAlreadyExist": "A user already exists with that username",
-  "hasPasswordNotIncluded": "Hashed password is not found/included",
+  "hashPasswordNotIncluded": "Update password: password security is low",
   "payloadNotFound": "username and sessionId not included/found in payload",
   "notVerfifed": "could not verify",
   "payloadExpired": "Payload is expired"

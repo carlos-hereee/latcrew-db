@@ -6,7 +6,8 @@ const userSchema = new Schema(
   {
     uid: { type: String, require: true, unique: true },
     username: { type: String, require: true },
-    password: { type: String, reuiqre: true },
+    password: { type: String, require: true },
+    hashedPassword: { type: String, require: true },
     email: { type: String, set: toLower, unique: true },
     nickname: { type: String },
     heroUrl: { type: String },

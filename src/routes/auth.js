@@ -37,13 +37,14 @@ router.post("/login", async (req, res) => {
     return res.status(404).send(msg.userDoesNotExist);
   }
   // check if passwords match
-  const { error } = isPasswordMatch(password, user.password);
+  const { error } = isPasswordMatch({ password, hashedPassword: user.hashedPassword });
   if (error) {
-    return res.status(error.status).send(error);
+    console.log("error", error);
+    return res.status(error.status).send(error.message);
   }
-  const session = await saveSession({ username });
-  const { accessToken } = storeCookies(res, username, session.uid);
-  return res.status(200).send({ user, accessToken });
+  // const session = await saveSession({ username });
+  // const { accessToken } = storeCookies(res, username, session.uid);
+  // return res.status(200).send({ user, accessToken });
 });
 router.post("/refresh-token", requireUser, async (req, res) => {
   console.log("\n*** Req.user", req.user);

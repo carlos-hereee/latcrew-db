@@ -1,15 +1,15 @@
 const bcrypt = require("bcryptjs");
 const msg = require("../data/error.message.json");
 
-module.exports = (password, hashPassword) => {
-  if (!hashPassword) {
+module.exports = ({ password, hashedPassword }) => {
+  if (!hashedPassword) {
     return {
-      error: { status: 404, message: msg.hashPasswordNotIncluded },
+      error: { status: 401, message: msg.hashPasswordNotIncluded },
     };
   }
-  const comparePassword = bcrypt.compareSync(password, hashPassword);
+  const comparePassword = bcrypt.compareSync(password, hashedPassword);
   if (!comparePassword) {
-    return { error: { status: 400, message: msg.invalidEmailOrPassword } };
+    return { error: { status: 403, message: msg.invalidEmailOrPassword } };
   }
-  return { isMatch: true };
+  return { error: null };
 };
