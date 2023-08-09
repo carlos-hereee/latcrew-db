@@ -1,5 +1,5 @@
 const Session = require("../../schema/session");
 
-module.exports = async (uid, payload) => {
-  return await Session.updateOne({ uid }, { $set: payload });
+module.exports = async ({ sessionId }, payload) => {
+  return await Session.updateOne({ sessionId }, { $set: payload });
 };
