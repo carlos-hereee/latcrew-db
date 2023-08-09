@@ -20,8 +20,9 @@ module.exports = async (req, res, next) => {
     // if missing
     if (!session.uid) return next();
     // store new access token
-    const { accessToken } = storeAccessToken(res, session.username, session.sessionId);
-    req.user = verifyJWT(accessToken).payload;
+    // const { accessToken } = storeAccessToken(res, session.username, session.sessionId);
+    // req.user = verifyJWT(accessToken).payload;
+    console.log("session", session);
     return next();
   }
 
