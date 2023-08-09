@@ -1,4 +1,4 @@
-const getValidSession = require("../db/model/session/getValidSession");
+const getValidSession = require("../db/methods/session/getValidSession");
 
 module.exports = async (req, res, next) => {
   try {

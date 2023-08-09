@@ -1,6 +1,6 @@
 const verifyJWT = require("../utils/jwt/verifyJWT");
 const storeAccessToken = require("../utils/cookies/storeAccessToken");
-const getValidSession = require("../db/model/session/getValidSession");
+const getValidSession = require("../db/methods/session/getValidSession");
 
 module.exports = async (req, res, next) => {
   const { accessToken, refreshToken } = req.cookies;

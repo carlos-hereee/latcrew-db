@@ -1,16 +1,16 @@
 const router = require("express").Router();
 const validateRegistration = require("../middleware/validateRegistration");
 const requireUser = require("../middleware/requireUser");
-const invalidateSession = require("../db/model/session/updateSession");
-const getUser = require("../db/model/users/getUser");
+const invalidateSession = require("../db/methods/session/updateSession");
+const getUser = require("../db/methods/users/getUser");
 const msg = require("../data/error.message.json");
 const message = require("../data/success.message.json");
-const saveSession = require("../db/model/session/saveSession");
+const saveSession = require("../db/methods/session/saveSession");
 const storeCookies = require("../utils/cookies/storeCookies");
 const resetCookies = require("../utils/cookies/resetCookies");
-const saveUser = require("../db/model/users/saveUser");
+const saveUser = require("../db/methods/users/saveUser");
 const { isDev } = require("../../config.env");
-const updatePassword = require("../db/model/users/updateUser");
+const updatePassword = require("../db/methods/users/updateUser");
 // custom middleware
 const validateUser = require("../middleware/validateUser");
 const validatePassword = require("../middleware/validatePassword");

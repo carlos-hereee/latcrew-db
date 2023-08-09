@@ -1,8 +1,8 @@
 const { v4 } = require("uuid");
-const getUser = require("../db/model/users/getUser");
+const getUser = require("../db/methods/users/getUser");
 const msg = require("../data/error.message.json");
 const { isDev } = require("../../config.env");
-const removeUser = require("../db/model/users/removeUser");
+const removeUser = require("../db/methods/users/removeUser");
 const hashPassword = require("../utils/hashPassword");
 
 module.exports = async (req, res, next) => {
