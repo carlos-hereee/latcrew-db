@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
   // verify previous password
   const { error } = isPasswordMatch({
     password: req.body.oldPassword ? req.body.oldPassword : req.body.password,
-    hashedPassword: req.user.password,
+    hashedPassword: req.user?.password || null,
   });
   if (!error) return next();
   // wrong password
@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
   // password not hashed - low security
   if (error.status === 401 && req.body.newPassword) {
     // if request has newPassword field hash newpassword
-    req.user = { ...req.user, hashedPassword: hashPassword(req.body.newPassword, 10) };
+    req.user = { ...req.user, password: hashPassword(req.body.newPassword, 10) };
   }
   return next();
 };

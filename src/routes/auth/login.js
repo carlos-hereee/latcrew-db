@@ -1,5 +1,9 @@
+const saveUser = require("../../db/methods/users/saveUser");
+const { random } = require("../../utils/crypto");
+
 module.exports = async (req, res) => {
   console.log("req.credentials", req.user);
+
   // if (session.length > 1) {
   //   console.log("session", session.length);
   //   console.log("session", session[0]);

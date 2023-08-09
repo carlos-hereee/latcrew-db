@@ -1,9 +1,15 @@
+const saveUser = require("../../db/methods/users/saveUser");
+const { random, authentication } = require("../../utils/crypto");
+
 module.exports = async (req, res) => {
-  // router.post("/register", validateCredentials, async (req, res) => {
-  const user = await saveUser(req.credentials);
-  const session = await saveSession({ username: user.username });
-  // console.log("user, session", user, session);
-  const { accessToken } = storeCookies(res, user.username, session.uid);
-  res.status(200).send({ user, accessToken });
+  // const { email, username, password } = req.body;
+  console.log("req.body", req.body);
+  console.log("req.user", req.user);
+  // const salt = random();
+  // const user = await saveUser({
+  //   email,
+  //   username,
+  //   authentication: { salt, password: authentication(salt, password) },
   // });
+  return res.status(200).send(user);
 };

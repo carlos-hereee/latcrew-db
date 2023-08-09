@@ -19,7 +19,7 @@ const authMiddleWare = [validateUser, validatePassword, validateSession];
 router.get("/", requireUser, userRoute);
 router.get("/:userId", requireUser, userWithIdRoute);
 // post
-router.post("/register", authMiddleWare, register);
+router.post("/register", validateUser, register);
 router.post("/login", authMiddleWare, login);
 router.post("/refresh-token", requireUser, refreshToken);
 // put
