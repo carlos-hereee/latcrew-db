@@ -1,4 +1,4 @@
-const signJWT = require("../signJWT");
+const signJWT = require("../jwt/signJWT");
 
 module.exports = (res, username, sessionId) => {
   const accessToken = signJWT({ username, sessionId }, "5m");

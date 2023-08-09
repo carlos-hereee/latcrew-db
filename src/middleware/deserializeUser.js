@@ -1,4 +1,4 @@
-const verifyJWT = require("../utils/verifyJWT");
+const verifyJWT = require("../utils/jwt/verifyJWT");
 const storeAccessToken = require("../utils/cookies/storeAccessToken");
 const getValidSession = require("../db/model/session/getValidSession");
 

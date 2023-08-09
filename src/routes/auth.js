@@ -10,7 +10,7 @@ const storeCookies = require("../utils/cookies/storeCookies");
 const resetCookies = require("../utils/cookies/resetCookies");
 const saveUser = require("../db/model/users/saveUser");
 const { isDev } = require("../../config.env");
-const updatePassword = require("../db/model/users/updatePassword");
+const updatePassword = require("../db/model/users/updateUser");
 // custom middleware
 const validateUser = require("../middleware/validateUser");
 const validatePassword = require("../middleware/validatePassword");

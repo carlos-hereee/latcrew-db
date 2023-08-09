@@ -2,9 +2,14 @@ const getValidSession = require("../db/model/session/getValidSession");
 
 module.exports = async (req, res, next) => {
   try {
-    const session = await getValidSession({ username: req.user.username });
+    const sessions = await getValidSession({ username: req.user.username });
     // verify session
-    if (session.length >= 1) {
+    if (sessions.length >= 1) {
+      // const validSession =
+      sessions.forEach((session) => {
+        const sessionId = session.uid;
+      });
+      // console.log("validSession", validSession);
     }
     next();
   } catch (error) {
