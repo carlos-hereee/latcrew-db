@@ -1,7 +1,6 @@
-const { v4 } = require("uuid");
 const Session = require("../../schema/session");
 
-module.exports = async ({ username }) => {
-  const session = new Session({ sessionId: v4(), isValid: true, username });
+module.exports = async (payload) => {
+  const session = new Session(payload);
   return await session.save();
 };
