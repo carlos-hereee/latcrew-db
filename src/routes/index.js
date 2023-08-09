@@ -1,5 +1,5 @@
 const { port } = require("../../config.env");
-const authRoute = require("./auth");
+const authRoute = require("./users/auth");
 
 module.exports = (app) => {
   // initial test route

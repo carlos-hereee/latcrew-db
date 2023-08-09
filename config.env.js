@@ -6,6 +6,7 @@ module.exports = {
   isDev: process.env.NODE_ENV === "development",
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
   refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
+  appSecret: process.env.APP_SECRET,
   cookieName: process.env.COOKIE_NAME,
   mongooseUser: process.env.MONGOOSE_USERNAME,
   mongoosePassword: process.env.MONGOOSE_PASSWORD,

@@ -1,20 +1,21 @@
 const router = require("express").Router();
-const validateRegistration = require("../middleware/validateRegistration");
-const requireUser = require("../middleware/requireUser");
-const invalidateSession = require("../db/methods/session/updateSession");
-const getUser = require("../db/methods/users/getUser");
-const msg = require("../data/error.message.json");
-const message = require("../data/success.message.json");
-const saveSession = require("../db/methods/session/saveSession");
-const storeCookies = require("../utils/cookies/storeCookies");
-const resetCookies = require("../utils/cookies/resetCookies");
-const saveUser = require("../db/methods/users/saveUser");
-const { isDev } = require("../../config.env");
-const updatePassword = require("../db/methods/users/updateUser");
+const invalidateSession = require("../../db/methods/session/updateSession");
+const getUser = require("../../db/methods/users/getUser");
+const msg = require("../../data/error.message.json");
+const message = require("../../data/success.message.json");
+const saveSession = require("../../db/methods/session/saveSession");
+const storeCookies = require("../../utils/cookies/storeCookies");
+const resetCookies = require("../../utils/cookies/resetCookies");
+const saveUser = require("../../db/methods/users/saveUser");
+const { isDev } = require("../../../config.env");
+const updatePassword = require("../../db/methods/users/updateUser");
 // custom middleware
-const validateUser = require("../middleware/validateUser");
-const validatePassword = require("../middleware/validatePassword");
-const validateSession = require("../middleware/validateSession");
+const requireUser = require("../../middleware/requireUser");
+const validateCredentials = require("../../middleware/validateCredentials");
+const validateUser = require("../../middleware/validateUser");
+const validatePassword = require("../../middleware/validatePassword");
+const validateSession = require("../../middleware/validateSession");
+const register = require("./register");
 
 const authMiddleWare = [validateUser, validatePassword, validateSession];
 
@@ -30,13 +31,7 @@ router.get("/:uid", requireUser, async (req, res) => {
     res.status(400).send(msg.userDoesNotExist);
   }
 });
-router.post("/register", validateRegistration, async (req, res) => {
-  const user = await saveUser(req.credentials);
-  const session = await saveSession({ username: user.username });
-  // console.log("user, session", user, session);
-  const { accessToken } = storeCookies(res, user.username, session.uid);
-  res.status(200).send({ user, accessToken });
-});
+router.post("/register", register);
 router.post("/login", authMiddleWare, async (req, res) => {
   console.log("req.credentials", req.user);
   // if (session.length > 1) {
