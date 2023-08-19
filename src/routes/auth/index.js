@@ -14,14 +14,13 @@ const validatePassword = require("../../middleware/auth/validatePassword");
 const validateSession = require("../../middleware/auth/validateSession");
 
 const authMiddleWare = [validateUser, validatePassword, validateSession];
-const authCredentials = [validateUser, validatePassword];
 
 // get
 router.get("/", requireUser, userRoute);
 router.get("/:userId", requireUser, userWithIdRoute);
 // post
 router.post("/register", validateUser, register);
-router.post("/login", authCredentials, login);
+router.post("/login", authMiddleWare, login);
 router.post("/refresh-token", requireUser, refreshToken);
 // put
 router.put("/change-password", authMiddleWare, changePassword);
