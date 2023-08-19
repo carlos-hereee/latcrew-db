@@ -16,9 +16,9 @@ module.exports = async (req, res, next) => {
       return next();
     }
     // check session
-    const [session] = await getValidSession({ uid: payload.sessionId });
+    const session = await getValidSession({ uid: payload.sessionId });
     // if missing
-    if (!session.uid) return next();
+    if (!session) return next();
     // store new access token
     // const { accessToken } = storeAccessToken(res, session.username, session.sessionId);
     // req.user = verifyJWT(accessToken).payload;

@@ -1,16 +1,12 @@
-const hashPassword = require("../utils/hashPassword");
-const isPasswordMatch = require("../utils/isPasswordMatch");
-const msg = require("../data/error.message.json");
+const hashPassword = require("../../utils/hashPassword");
+const isPasswordMatch = require("../../utils/isPasswordMatch");
+const msg = require("../../data/error.message.json");
 
 module.exports = async (req, res, next) => {
-  if (!req.body.password && !req.body.oldPassword) {
-    return res.status(400).send(msg.missingCredentials);
-  }
+  const { password } = req.body;
+  if (!password) return res.status(400).send(msg.missingCredentials);
   // verify previous password
-  const { error } = isPasswordMatch({
-    password: req.body.oldPassword ? req.body.oldPassword : req.body.password,
-    hashedPassword: req.user?.password || null,
-  });
+  const { error } = isPasswordMatch({ password, hashedPassword: req.user?.password });
   if (!error) return next();
   // wrong password
   if (error.status === 403) return res.status(error.status).send(error);
