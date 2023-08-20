@@ -13,6 +13,7 @@ const validateUser = require("../../middleware/auth/validateUser");
 const validatePassword = require("../../middleware/auth/validatePassword");
 const verifyCredentials = require("../../middleware/auth/verifyCredentials");
 const verifyUser = require("../../middleware/auth/verifyUser");
+const validateUserSession = require("../../middleware/auth/validateUserSession");
 
 const validateWare = [verifyCredentials, validateUser, requireUser, validatePassword];
 const credentialWare = [verifyCredentials, validateUser];
@@ -22,7 +23,7 @@ router.get("/", requireUser, userRoute);
 router.get("/:userId", requireUser, userWithIdRoute);
 // post
 router.post("/register", [...credentialWare, verifyUser], register);
-router.post("/login", validateWare, login);
+router.post("/login", [...validateWare, validateUserSession], login);
 router.post("/refresh-token", requireUser, refreshToken);
 // put
 router.put("/change-password", validateWare, changePassword);
