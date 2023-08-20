@@ -11,19 +11,20 @@ const logout = require("./logout");
 const changePassword = require("./changePassword");
 const validateUser = require("../../middleware/auth/validateUser");
 const validatePassword = require("../../middleware/auth/validatePassword");
-const validateSession = require("../../middleware/auth/validateSession");
+const verifyCredentials = require("../../middleware/auth/verifyCredentials");
 
-const authMiddleWare = [validateUser, validatePassword, validateSession];
+const validateMiddleware = [verifyCredentials, validateUser, validatePassword];
+const credentialMiddleware = [verifyCredentials];
 
 // get
 router.get("/", requireUser, userRoute);
 router.get("/:userId", requireUser, userWithIdRoute);
 // post
 router.post("/register", validateUser, register);
-router.post("/login", authMiddleWare, login);
+router.post("/login", validateMiddleware, login);
 router.post("/refresh-token", requireUser, refreshToken);
 // put
-router.put("/change-password", authMiddleWare, changePassword);
+router.put("/change-password", validateMiddleware, changePassword);
 // log out
 router.delete("/logout", requireUser, logout);
 

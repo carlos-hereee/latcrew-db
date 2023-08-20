@@ -1,7 +1,6 @@
-const bcrypt = require("bcryptjs");
 const msg = require("../data/error.message.json");
 
-module.exports = ({ password, hashedPassword }) => {
+module.exports = (password, hashedPassword) => {
   if (!hashedPassword) {
     return { error: { status: 401, message: msg.hashPasswordNotIncluded } };
   }

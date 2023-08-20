@@ -13,5 +13,5 @@ module.exports = async (req, res) => {
   const user = await saveUser({ email, username, salt, password: refreshToken });
   console.log("user", user);
   console.log("accessToken", accessToken);
-  return res.status(200).send({ accessToken, user }).end();
+  return res.status(200).send({ accessToken, user });
 };
