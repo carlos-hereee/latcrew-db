@@ -1,9 +1,12 @@
+const makeSession = require("../../utils/auth/makeSession");
+const storeCookies = require("../../utils/cookies/storeCookies");
+
 module.exports = async (req, res) => {
-  console.log("\n*** Req.user", req.user);
-  const user = await getUser({ username: req.user.username });
-  if (user) {
-    const { accessToken } = storeCookies(res, user.username, req.user.sessionId);
-    return res.status(200).send({ user, accessToken });
-  }
-  return res.status(400).send(msg.userDoesNotExist);
+  // access granted: generate new sessionId
+  const sessionId = makeSession(req.user.userId);
+  req.user.sessionId = sessionId;
+  await req.user.save();
+  // create  cookies
+  const { accessToken } = storeCookies(res, req.user.username, req.user.sessionId);
+  return res.status(200).send({ user: req.user, accessToken });
 };
