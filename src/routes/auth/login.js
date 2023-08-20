@@ -1,4 +1,5 @@
 const getUser = require("../../db/methods/users/getUser");
+const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {
   // create new session cookie
