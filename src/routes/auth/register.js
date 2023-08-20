@@ -11,10 +11,9 @@ module.exports = async (req, res) => {
   const hashPassword = generateHash(salt, password);
   const { accessToken } = storeCookies(res, username, hashPassword);
   const data = await saveUser({ email, username, salt, password: hashPassword });
-  const user = {
-    userId: data.userId,
-    username: data.username,
-    email: data.email,
-  };
-  return res.status(200).send({ accessToken, user });
+
+  return res.status(200).send({
+    accessToken,
+    user: { userId: data.userId, username: data.username, email: data.email },
+  });
 };
