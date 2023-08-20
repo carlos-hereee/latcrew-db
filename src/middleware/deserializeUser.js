@@ -1,6 +1,7 @@
 const verifyJWT = require("../utils/jwt/verifyJWT");
 const storeAccessToken = require("../utils/cookies/storeAccessToken");
-const getValidSession = require("../db/methods/session/getValidSession");
+const getUser = require("../db/users/getUser");
+// const getValidSession = require("../db/session/getValidSession");
 
 module.exports = async (req, res, next) => {
   const { accessToken, refreshToken } = req.cookies;
@@ -15,8 +16,9 @@ module.exports = async (req, res, next) => {
       console.log("**** Error", error.message, "\n\n", "\tpayload: ", payload);
       return next();
     }
+    req.user = await getUser({ sessionId: payload.sessionId });
     // check session
-    const session = await getValidSession({ uid: payload.sessionId });
+    // const session = await getValidSession({ uid: payload.sessionId });
     // if missing
     if (!session) return next();
     // store new access token
@@ -25,6 +27,7 @@ module.exports = async (req, res, next) => {
     console.log("session", session);
     return next();
   }
+  console.log("req.cookies", req.cookies);
 
   const { payload, error } = verifyJWT(accessToken);
   if (error) {

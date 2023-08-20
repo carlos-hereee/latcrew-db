@@ -1,4 +1,4 @@
-const getUserAuth = require("../../db/methods/users/getUserAuth");
+const getUserAuth = require("../../db/users/getUserAuth");
 
 module.exports = async (req, res, next) => {
   const user = await getUserAuth({ username: req.body.username });

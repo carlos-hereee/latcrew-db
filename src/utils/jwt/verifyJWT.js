@@ -7,12 +7,6 @@ module.exports = (token) => {
     // check if token is expired
     const isExpired = error ? error.message.includes("jwt expired") : false;
     // check valid values
-    if (!decoded?.username || !decoded?.sessionId) {
-      return {
-        payload: decoded,
-        error: { expired: false, status: 403, message: msg.payloadNotFound },
-      };
-    }
     return {
       payload: decoded,
       error: {

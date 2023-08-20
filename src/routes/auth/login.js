@@ -1,4 +1,4 @@
-const getUser = require("../../db/methods/users/getUser");
+const getUser = require("../../db/users/getUser");
 const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {

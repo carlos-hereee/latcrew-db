@@ -1,7 +1,7 @@
-const saveUser = require("../../db/methods/users/saveUser");
+const saveUser = require("../../db/users/saveUser");
 const storeCookies = require("../../utils/cookies/storeCookies");
 const makeSession = require("../../utils/auth/makeSession");
-const getUser = require("../../db/methods/users/getUser");
+const getUser = require("../../db/users/getUser");
 
 module.exports = async (req, res) => {
   const { email, username, password } = req.body;
