@@ -1,6 +1,6 @@
+const mgs = require("../data/error.message.json");
+
 module.exports = (req, res, next) => {
-  if (!req.user) {
-    return res.sendStatus(403);
-  }
-  return next();
+  // check if user exists
+  return req.user ? next() : res.status(403).send(mgs.userDoesNotExist);
 };

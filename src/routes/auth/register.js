@@ -8,10 +8,13 @@ module.exports = async (req, res) => {
   const { email, username, password } = req.body;
   if (req.user) return res.status(400).send(msg.userAlreadyExist);
   const salt = random();
-  const sessionId = generateHash(salt, password);
-  const { accessToken } = storeCookies(res, username, sessionId);
-  const user = await saveUser({ email, username, salt, password: refreshToken });
-  console.log("user", user);
-  console.log("accessToken", accessToken);
+  const hashPassword = generateHash(salt, password);
+  const { accessToken } = storeCookies(res, username, hashPassword);
+  const data = await saveUser({ email, username, salt, password: hashPassword });
+  const user = {
+    userId: data.userId,
+    username: data.username,
+    email: data.email,
+  };
   return res.status(200).send({ accessToken, user });
 };

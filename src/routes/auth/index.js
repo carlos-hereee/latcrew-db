@@ -13,7 +13,7 @@ const validateUser = require("../../middleware/auth/validateUser");
 const validatePassword = require("../../middleware/auth/validatePassword");
 const verifyCredentials = require("../../middleware/auth/verifyCredentials");
 
-const validateWare = [verifyCredentials, validateUser, validatePassword];
+const validateWare = [verifyCredentials, validateUser, requireUser, validatePassword];
 const credentialWare = [verifyCredentials, validateUser];
 
 // get

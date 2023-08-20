@@ -4,13 +4,12 @@ const generateHash = require("../../utils/auth/generateHash");
 const random = require("../../utils/auth/random");
 
 module.exports = async (req, res) => {
-  const { password } = req.body;
-  const reqUser = req.user;
-
+  const { sessionId, userId } = req.user;
   // create new session cookie
   const salt = random();
-  reqUser.sessionId = generateHash(salt, req.user.userId);
-  console.log(await reqUser.save());
+  const id = generateHash(salt, userId);
+  console.log("id", id);
+  // console.log(await reqUser.save());
   // res.cookie("accessToken", reqUser.sessionId, {domain:"localhost",  })
 
   console.log("sessionId", sessionId);
