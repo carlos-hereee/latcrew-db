@@ -8,14 +8,18 @@ module.exports = async (req, res) => {
   const reqUser = req.user;
   // user does not exist in db
   if (!reqUser) return res.status(403).send(mgs.userDoesNotExist);
-  const salt = random();
-  const expectedHash = generateHash(reqUser.authentication.salt, password);
-  console.log("req.credentials", reqUser);
-  if (reqUser.authentication.password !== expectedHash) {
+  const expectedHash = generateHash(reqUser.salt, password);
+  // incorrect password
+  if (reqUser.password !== expectedHash) {
     return res.status(403).send(mgs.invalidCredentails);
   }
-  const sessionToken = generateHash(salt, req.user.userId);
-  console.log("sessionToken", sessionToken);
+  // create new session cookie
+  const salt = random();
+  reqUser.sessionId = generateHash(salt, req.user.userId);
+  console.log(await reqUser.save());
+  // res.cookie("accessToken", reqUser.sessionId, {domain:"localhost",  })
+
+  console.log("sessionId", sessionId);
   // if (session.length > 1) {
   //   console.log("session", session.length);
   //   console.log("session", session[0]);

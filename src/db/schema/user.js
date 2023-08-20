@@ -8,11 +8,9 @@ const userSchema = new Schema(
     email: { type: String, set: toLower, unique: true },
     username: { type: String, require: true, unique: true },
     nickname: { type: String },
-    authentication: {
-      password: { type: String, required: true, select: false },
-      salt: { type: String, select: false },
-      sessionToken: { type: String, select: false },
-    },
+    password: { type: String, required: true, select: false },
+    salt: { type: String, select: false },
+    sessionId: { type: String, select: false },
   },
   { timestamps: true }
 );

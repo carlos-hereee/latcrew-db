@@ -1,11 +1,10 @@
 const Users = require("../../schema/user");
 
-module.exports = async ({ username, sessionToken }) => {
+module.exports = async ({ username, refreshToken }) => {
   if (username) {
-    const auth = "+authentication.salt +authentication.password";
-    return await Users.findOne({ username }).select(auth);
+    return await Users.findOne({ username }).select("+salt +password");
   }
-  if (sessionToken) {
-    return await Users.findOne({ "authentication.sessionToken": sessionToken });
+  if (refreshToken) {
+    return await Users.findOne({ refreshToken });
   }
 };
