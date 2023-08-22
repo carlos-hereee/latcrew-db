@@ -1,15 +1,19 @@
 const saveUser = require("../../db/users/saveUser");
 const storeCookies = require("../../utils/cookies/storeCookies");
-const makeSession = require("../../utils/auth/makeSession");
-const getUser = require("../../db/users/getUser");
+const random = require("../../utils/auth/random");
+const generateHash = require("../../utils/auth/generateHash");
+const { v4 } = require("uuid");
 
 module.exports = async (req, res) => {
   const { email, username } = req.body;
-  // create session cookie
-  const password = makeSession(req.body.password);
-  const { accessToken } = storeCookies(res, username, password);
-  await saveUser({ email, username, salt, password });
+  // save protect password with hash-encryption
+  const userId = v4();
+  const salt = random();
+  const password = generateHash(salt, req.body.password);
+  const sessionId = generateHash(salt, userId);
+  await saveUser({ userId, email, username, salt, password, sessionId });
 
-  const user = await getUser({ username });
-  return res.status(200).send({ accessToken, user });
+  // create session cookie
+  const { accessToken } = storeCookies(res, username, sessionId);
+  return res.status(200).send({ accessToken, user: { username, userId, email } });
 };
