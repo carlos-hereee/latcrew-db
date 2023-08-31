@@ -10,5 +10,5 @@ module.exports = (app) => {
   // authentication route for login and access/refresh tokens
   app.use("/auth/", authRoute);
   // app data
-  app.use("/app", appRoute);
+  app.use("/app/", appRoute);
 };
