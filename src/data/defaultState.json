@@ -490,7 +490,8 @@
       "small": "small/icons/logo.jpg",
       "name": "logo",
       "alt": "industry brand",
-      "label": "Sparkle and Shine"
+      "label": "Sparkle and Shine",
+      "uid": "sparke-shine-logo"
     }
   },
   "media": {

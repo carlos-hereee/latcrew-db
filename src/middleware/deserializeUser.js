@@ -16,6 +16,5 @@ module.exports = async (req, res, next) => {
       req.user = await getUser({ username: payload });
     }
   }
-  // console.log("req.user", req.user);
   return next();
 };

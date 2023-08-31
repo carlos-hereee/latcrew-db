@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const pageSchema = new Schema(
   {
-    userId: { type: String, require: true, unique: true },
     pageId: { type: String, require: true, unique: true },
-    heroId: { type: String, unique: true },
+    userId: { type: String, require: true },
+    languageId: { type: String, require: true },
+    heroId: { type: String },
     title: { type: String },
     body: { type: String },
     response: { type: String },

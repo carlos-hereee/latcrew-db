@@ -12,6 +12,13 @@ const userSchema = new Schema(
     password: { type: String, required: true, select: false },
     salt: { type: String, select: false },
     sessionId: { type: String, select: false },
+    language: {
+      name: { type: String, default: "english" },
+      label: { type: String, default: "English" },
+      locale: { type: String, default: "en" },
+      assetUrl: { type: String },
+      languageId: { type: String, require: true },
+    },
   },
   { timestamps: true }
 );
