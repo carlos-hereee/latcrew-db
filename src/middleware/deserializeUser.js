@@ -1,5 +1,5 @@
 const verifyJWT = require("../utils/jwt/verifyJWT");
-const getUser = require("../db/users/getUser");
+const getUser = require("../db/models/users/getUser");
 
 module.exports = async (req, res, next) => {
   const { accessToken, refreshToken } = req.cookies;

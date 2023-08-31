@@ -1,4 +1,4 @@
-const saveUser = require("../../db/users/saveUser");
+const saveUser = require("../../db/models/users/saveUser");
 const storeCookies = require("../../utils/cookies/storeCookies");
 const random = require("../../utils/auth/random");
 const generateHash = require("../../utils/auth/generateHash");

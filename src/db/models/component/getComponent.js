@@ -1,4 +1,4 @@
-const Component = require("../schema/component");
+const Component = require("../../schema/component");
 
 module.exports = async ({ componentId }) => {
   if (componentId) {

@@ -1,4 +1,4 @@
-const Users = require("../schema/user");
+const Users = require("../../schema/user");
 
 module.exports = async ({ username, refreshToken }) => {
   if (username) {

@@ -1,4 +1,4 @@
-const Hero = require("../schema/hero");
+const Hero = require("../../schema/hero");
 
 module.exports = async ({ heroId }) => {
   if (heroId) {
