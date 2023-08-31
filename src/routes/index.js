@@ -1,5 +1,6 @@
 const { port } = require("../../config.env");
 const authRoute = require("./auth");
+const appRoute = require("./app");
 
 module.exports = (app) => {
   // initial test route
@@ -8,4 +9,6 @@ module.exports = (app) => {
   });
   // authentication route for login and access/refresh tokens
   app.use("/auth/", authRoute);
+  // app data
+  app.use("/app", appRoute);
 };
