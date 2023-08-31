@@ -5,6 +5,7 @@ const pageSchema = new Schema(
   {
     pageId: { type: String, require: true, unique: true },
     userId: { type: String, require: true },
+    appId: { type: String, default: "sparkle-shine" },
     languageId: { type: String, require: true },
     heroId: { type: String },
     title: { type: String },
