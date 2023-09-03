@@ -1,4 +1,4 @@
-const Page = require("../schema/page");
+const Page = require("../../schema/page");
 
 module.exports = async (payload) => {
   const page = new Page(payload);
