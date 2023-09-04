@@ -15,5 +15,5 @@ module.exports = async (req, res) => {
 
   // create session cookie
   const { accessToken } = storeCookies(res, username, sessionId);
-  return res.status(200).send({ accessToken, user: { username, userId, email } });
+  return res.status(200).json({ accessToken, user: { username, userId, email } }).end();
 };

@@ -13,8 +13,11 @@ module.exports = async (req, res) => {
     // console.log("data", page);
 
     // if (data.length > 0) {
-    //   res.status(201).send(data);
+    //   res.status(201).json(data).end();
     // }
-    // res.status(201).send(defaultState);
-  } else res.status(403).send(msg.adminRequired);
+    // res.status(201).json(defaultState).end();
+  } else {
+    const message = msg.adminRequired;
+    res.status(403).json(message).end();
+  }
 };

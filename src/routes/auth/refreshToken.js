@@ -8,5 +8,5 @@ module.exports = async (req, res) => {
   await req.user.save();
   // create  cookies
   const { accessToken } = storeCookies(res, req.user.username, req.user.sessionId);
-  return res.status(200).send({ user: req.user, accessToken });
+  return res.status(200).json({ user: req.user, accessToken }).end();
 };

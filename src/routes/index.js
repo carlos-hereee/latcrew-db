@@ -6,7 +6,8 @@ const calendarRoute = require("./calendar");
 module.exports = (app) => {
   // initial test route
   app.get("/", (req, res) => {
-    res.status(200).json({ message: `api is running on ${port}` });
+    const message = `api is running on ${port}`;
+    res.status(200).json(message).end();
   });
   // authentication route for login and access/refresh tokens
   app.use("/auth/", authRoute);

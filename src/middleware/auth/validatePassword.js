@@ -1,4 +1,4 @@
-const mgs = require("../../data/error.message.json");
+const msg = require("../../data/error.message.json");
 const generateHash = require("../../utils/auth/generateHash");
 
 module.exports = async (req, res, next) => {
@@ -7,5 +7,8 @@ module.exports = async (req, res, next) => {
   // validate password
   if (expectedHash === req.user.password) {
     return next();
-  } else return res.status(403).send(mgs.invalidCredentails);
+  } else {
+    const message = msg.invalidCredentails;
+    return res.status(403).json(message).end();
+  }
 };

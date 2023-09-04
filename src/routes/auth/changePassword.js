@@ -1,3 +1,6 @@
+const msg = require("../../data/error.message.json");
+const successMessage = require("../../data/success.message.json");
+
 module.exports = async (req, res) => {
   // change password
   // if (req.body.newPassword) {
@@ -6,6 +9,11 @@ module.exports = async (req, res) => {
   // }
 
   const updatedPassword = await updatePassword(req.credentials.uid, req.credentials);
-  if (updatedPassword.acknowledged) return res.status(200).send(message.passwordChanged);
-  else return res.status(500).send(msg.serverIsDown);
+  if (updatedPassword.acknowledged) {
+    const message = successMessage.passwordChanged;
+    return res.status(200).json(message).end();
+  } else {
+    const message = msg.serverIsDown;
+    return res.status(500).json(message).end();
+  }
 };
