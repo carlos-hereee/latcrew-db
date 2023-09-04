@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const routes = require("./routes");
 const connectMongoose = require("./db/connectMongoose");
-const deserializeUser = require("./middleware/deserializeUser");
+const deserializeUser = require("./middleware/auth/deserializeUser");
 const { clientUrl, clientUrlAlt } = require("../config.env");
 
 // create an express app
