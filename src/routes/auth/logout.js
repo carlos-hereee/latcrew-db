@@ -1,17 +1,9 @@
+const updateUser = require("../../db/models/users/updateUser");
 const resetCookies = require("../../utils/cookies/resetCookies");
 
 module.exports = async (req, res) => {
-  console.log("req.user", req.user);
-  console.log("req.body", req.body);
   // invalidate session
-  req.user.sessionId = "invalidated";
-  await req.user.save();
+  await updateUser({ userId: req.user.userId }, { sessionId: "invalidated" });
   resetCookies(res);
-
-  res.jsonStatus(202).end();
-
-  //   changeOnline(false, req.user._id);
-  // const session = invalidateSession(req.user.sessionId);
-  // resetCookies(res); // reset cookies
-  // res.json(session);
+  res.status(202).end();
 };
