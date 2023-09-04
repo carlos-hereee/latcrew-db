@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+const { appId } = require("../../../config.env");
 const Schema = mongoose.Schema;
 
 const pageSchema = new Schema(
   {
     pageId: { type: String, require: true, unique: true },
     userId: { type: String, require: true },
-    appId: { type: String, default: "sparkle-shine" },
+    appId: { type: String, default: appId },
     languageId: { type: String, require: true },
     heroId: { type: String },
     title: { type: String },

@@ -12,4 +12,5 @@ module.exports = {
   mongoosePassword: process.env.MONGOOSE_PASSWORD,
   jwtPrivateKey: process.env.JWT_PRIVATE_KEY,
   jwtPublicKey: process.env.JWT_PUBLIC_KEY,
+  appId: process.env.APP_ID || "sparkle-shine",
 };

@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const toLower = require("../../utils/lowerCase");
+const { appId } = require("../../../config.env");
 
 const userSchema = new Schema(
   {
     userId: { type: String, require: true, unique: true },
-    appId: { type: String, default: "sparkle-shine" },
+    appId: { type: String, default: appId },
     email: { type: String, set: toLower, unique: true },
     username: { type: String, require: true, unique: true },
     nickname: { type: String },
@@ -17,7 +18,7 @@ const userSchema = new Schema(
       name: { type: String, default: "english" },
       label: { type: String, default: "English" },
       locale: { type: String, default: "en" },
-      assetUrl: { type: String, default: "icons/english.svg" },
+      url: { type: String, default: "icons/english.svg" },
       languageId: { type: String, default: "english-en" },
     },
   },

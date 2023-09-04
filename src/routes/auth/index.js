@@ -23,7 +23,7 @@ router.get("/:userId", requireUser, userWithIdRoute);
 // post
 router.post("/register", [...credentialWare, verifyUser], register);
 router.post("/login", validateWare, login);
-router.post("/refresh-token", requireUser, refreshToken);
+router.post("/refresh-token", refreshToken);
 // put
 router.put("/change-password", validateWare, changePassword);
 // log out

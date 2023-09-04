@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const { appId } = require("../../../config.env");
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema(
   {
     eventId: { type: String, require: true, unique: true },
-    calendarId: { type: String, require: true, default: "sparkle-shine" },
+    calendarId: { type: String, require: true, default: appId },
     heroId: { type: String },
     list: [
       {
