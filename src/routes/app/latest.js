@@ -1,13 +1,13 @@
-const defaultState = require("../../data/defaultState.json");
-const getPages = require("../../db/models/page/getPages");
+const getApp = require("../../db/models/app/getApp");
 
 module.exports = async (req, res) => {
-  const { language, appId } = req.user;
-  const data = await getPages({ appId, languageId: language.languageId });
+  const { appId } = req.user;
+  console.log("appId", appId);
+  const app = await getApp({ appId });
 
   // if (data.length > 0) {
-  console.log("lastest and greatest", data);
-  return res.status(201).json(data).end();
+  console.log("lastest and greatest", app);
+  return res.status(201).json(app).end();
   // }
   // return res.status(400).json(defaultState).end();
 };

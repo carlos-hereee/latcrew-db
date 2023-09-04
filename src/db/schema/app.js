@@ -4,20 +4,14 @@ const { appId } = require("../../../config.env");
 
 const appSchema = new Schema(
   {
-    appId: { type: String, default: appId, require: true, unique: true },
+    appId: { type: String, default: appId, require: true },
     languageId: { type: String, default: "english-en" },
     locale: { type: String, default: "en" },
     name: { type: String, default: "Sparkle and Shine" },
     theme: { type: String, default: "default" },
     isLoading: { type: Boolean, default: true },
     logo: {
-      // theme: { type: String, default: "logo" },
-      // name: { type: String, default: "sparkle-shine" },
-      // label: { type: String, default: "Sharkle and Shine" },
-      // url: { type: String, default: "icons/logo.svg" },
-      // small: { type: String, default: "small/icons/logo.jpg" },
       heroId: { type: String, default: "sparke-shine-logo" },
-      // alt: { type: String, default: "industry brand" },
     },
     newsletter: {
       title: { type: String, default: "Join the newsletter" },
@@ -38,10 +32,11 @@ const appSchema = new Schema(
     },
     menu: [
       {
-        menuItemId: { type: String, require: true },
+        menuItemId: { type: String },
         isToggle: { type: Boolean, default: false },
         isPrivate: { type: Boolean, default: false },
         active: {
+          uid: { type: String },
           label: { type: String },
           link: { type: String },
           icon: { type: String },
@@ -51,6 +46,7 @@ const appSchema = new Schema(
         },
         alternatives: [
           {
+            uid: { type: String },
             label: { type: String },
             link: { type: String },
             icon: { type: String },
