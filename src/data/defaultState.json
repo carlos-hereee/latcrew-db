@@ -1,11 +1,4 @@
 {
-  "newsletter": {
-    "title": "Join the newsletter",
-    "subtitle": "Suscribe to get the latest content by email",
-    "response": "Unsubscribe at any time.",
-    "hero": { "link": "", "name": "main-hero" }
-  },
-  "isLoading": true,
   "faq": {
     "hero": {
       "url": "unsplash/jeff-sheldon-6MT4_Ut8a3Y-unsplash.jpg",
@@ -482,6 +475,13 @@
     ]
   },
   "app": {
+    "isLoading": true,
+    "newsletter": {
+      "title": "Join the newsletter",
+      "subtitle": "Suscribe to get the latest content by email",
+      "response": "Unsubscribe at any time.",
+      "hero": { "link": "", "name": "main-hero" }
+    },
     "name": "Sparkle and Shine",
     "theme": "default",
     "language": "default",
@@ -492,121 +492,32 @@
       "alt": "industry brand",
       "label": "Sparkle and Shine",
       "uid": "sparke-shine-logo"
-    }
-  },
-  "media": {
-    "title": "Dont miss a thing! Follow us on our socials",
-    "socials": [
-      {
-        "isEmpty": true,
-        "name": "instagram",
-        "link": "https://www.instagram.com//",
-        "uid": "instagram-1"
-      },
-      {
-        "isEmpty": true,
-        "name": "twitter",
-        "link": "https://www.twitter.com//",
-        "uid": "twitter-1"
-      },
-      {
-        "isEmpty": true,
-        "name": "facebook",
-        "link": "https://www.twitter.com//",
-        "uid": "facebook-1"
-      }
-    ]
-  },
-  "menu": [
-    {
-      "isToggle": true,
-      "lang": "en",
-      "uid": "menu-item-lan",
-      "alternatives": [
+    },
+    "media": {
+      "title": "Dont miss a thing! Follow us on our socials",
+      "socials": [
         {
-          "name": "english",
-          "label": "english",
-          "locale": "en",
-          "url": "icons/english.svg",
-          "uid": "lan-english"
+          "isEmpty": true,
+          "name": "instagram",
+          "link": "https://www.instagram.com//",
+          "uid": "instagram-1"
         },
         {
-          "name": "espanol",
-          "locale": "es",
-          "label": "espanol",
-          "url": "icons/spanish.svg",
-          "uid": "lan-espanol"
+          "isEmpty": true,
+          "name": "twitter",
+          "link": "https://www.twitter.com//",
+          "uid": "twitter-1"
+        },
+        {
+          "isEmpty": true,
+          "name": "facebook",
+          "link": "https://www.twitter.com//",
+          "uid": "facebook-1"
         }
       ]
     },
-    {
-      "name": "services",
-      "label": "services",
-      "link": "services",
-      "icon": "services",
-      "uid": "services",
-      "ping": 0
-    },
-    {
-      "name": "testimonials",
-      "label": "testimonials",
-      "link": "testimonials",
-      "icon": "testimonials",
-      "uid": "testimonial",
-      "ping": 0
-    },
-    {
-      "name": "about",
-      "label": "about",
-      "link": "about",
-      "icon": "about",
-      "uid": "about",
-      "ping": 0
-    },
-    {
-      "name": "contact",
-      "label": "contact",
-      "link": "contact",
-      "icon": "contact",
-      "uid": "contact",
-      "ping": 0
-    },
-    {
-      "name": "FAQ",
-      "label": "FAQ",
-      "link": "FAQ",
-      "icon": "FAQ",
-      "uid": "faq",
-      "ping": 0
-    },
-    {
-      "active": {
-        "name": "login",
-        "label": "login",
-        "icon": "login",
-        "uid": "auth-login"
-      },
-      "link": "login",
-      "isPrivate": true,
-      "uid": "auth-1",
-      "alternatives": [
-        {
-          "name": "login",
-          "label": "login",
-          "icon": "login",
-          "uid": "auth-login",
-          "link": "login"
-        },
-        {
-          "name": "dashboard",
-          "label": "dashboard",
-          "icon": "user",
-          "uid": "auth-dash",
-          "link": "dashboard"
-        }
-      ]
-    }
-  ],
+    "calendar": { "events": [] }
+  },
   "landing": {
     "appName": "Sharkle and Shine",
     "hero": {
@@ -668,7 +579,96 @@
         "title": "Customizable Cleaning Plans",
         "body": "We understand that every home is unique. That's why we offer customizable cleaning plans that allow you to tailor our services to meet your specific requirements."
       }
+    ],
+    "menu": [
+      {
+        "isToggle": true,
+        "lang": "en",
+        "uid": "menu-item-lan",
+        "alternatives": [
+          {
+            "name": "english",
+            "label": "english",
+            "locale": "en",
+            "url": "icons/english.svg",
+            "uid": "lan-english"
+          },
+          {
+            "name": "espanol",
+            "locale": "es",
+            "label": "espanol",
+            "url": "icons/spanish.svg",
+            "uid": "lan-espanol"
+          }
+        ]
+      },
+      {
+        "name": "services",
+        "label": "services",
+        "link": "services",
+        "icon": "services",
+        "uid": "services",
+        "ping": 0
+      },
+      {
+        "name": "testimonials",
+        "label": "testimonials",
+        "link": "testimonials",
+        "icon": "testimonials",
+        "uid": "testimonial",
+        "ping": 0
+      },
+      {
+        "name": "about",
+        "label": "about",
+        "link": "about",
+        "icon": "about",
+        "uid": "about",
+        "ping": 0
+      },
+      {
+        "name": "contact",
+        "label": "contact",
+        "link": "contact",
+        "icon": "contact",
+        "uid": "contact",
+        "ping": 0
+      },
+      {
+        "name": "FAQ",
+        "label": "FAQ",
+        "link": "FAQ",
+        "icon": "FAQ",
+        "uid": "faq",
+        "ping": 0
+      },
+      {
+        "active": {
+          "name": "login",
+          "label": "login",
+          "icon": "login",
+          "uid": "auth-login"
+        },
+        "link": "login",
+        "isPrivate": true,
+        "uid": "auth-1",
+        "alternatives": [
+          {
+            "name": "login",
+            "label": "login",
+            "icon": "login",
+            "uid": "auth-login",
+            "link": "login"
+          },
+          {
+            "name": "dashboard",
+            "label": "dashboard",
+            "icon": "user",
+            "uid": "auth-dash",
+            "link": "dashboard"
+          }
+        ]
+      }
     ]
-  },
-  "calendar": { "events": [] }
+  }
 }
