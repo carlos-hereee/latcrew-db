@@ -8,8 +8,7 @@ const appSchema = new Schema(
     languageId: { type: String, default: "english-en" },
     locale: { type: String, default: "en" },
     name: { type: String, default: "Sparkle and Shine" },
-    theme: { type: String, default: "default" },
-    isLoading: { type: Boolean, default: true },
+    theme: { type: String, default: "light" },
     logo: {
       heroId: { type: String, default: "sparke-shine-logo" },
     },
@@ -21,6 +20,7 @@ const appSchema = new Schema(
     },
     media: {
       title: { type: String, default: "Dont miss a thing! Follow us on our socials" },
+      heroId: { type: String },
       socials: [
         {
           isEmpty: { type: Boolean },
