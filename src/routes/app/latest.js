@@ -1,5 +1,5 @@
 const getApp = require("../../db/models/app/getApp");
-const msg = require("../../data/error.message.json");
+const msg = require("../../db/data/error.message.json");
 
 module.exports = async (req, res) => {
   const { appId } = req.user;

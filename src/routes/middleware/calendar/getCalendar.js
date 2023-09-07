@@ -1,5 +1,4 @@
-const getCalendar = require("../../db/models/calendar/getCalendar");
-const msg = require("../../data/error.message.json");
+const msg = require("../../../db/data/error.message.json");
 
 module.exports = async (req, res, next) => {
   const { appId } = req.user;

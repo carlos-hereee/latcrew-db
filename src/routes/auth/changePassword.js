@@ -1,5 +1,6 @@
-const msg = require("../../data/error.message.json");
-const successMessage = require("../../data/success.message.json");
+const msg = require("../../db/data/error.message.json");
+// const successMessage = require("../../../db/data/success.message.json");
+const successMessage = require("../../db/data/success.message.json");
 
 module.exports = async (req, res) => {
   // change password

@@ -1,6 +1,4 @@
 const router = require("express").Router();
-// custom middleware
-const requireUser = require("../../middleware/auth/requireUser");
 // routes
 const register = require("./register");
 const userRoute = require("./userRoute");
@@ -9,11 +7,10 @@ const refreshToken = require("./refreshToken");
 const login = require("./login");
 const logout = require("./logout");
 const changePassword = require("./changePassword");
-const validateUser = require("../../middleware/auth/validateUser");
-const validatePassword = require("../../middleware/auth/validatePassword");
-const verifyCredentials = require("../../middleware/auth/verifyCredentials");
-const verifyUser = require("../../middleware/auth/verifyUser");
-
+// custom middleware
+const { verifyCredentials, validateUser, requireUser } = require("../middleware/auth");
+const { validatePassword, verifyUser } = require("../middleware/auth");
+// one liners
 const validateWare = [verifyCredentials, validateUser, requireUser, validatePassword];
 const credentialWare = [verifyCredentials, validateUser];
 

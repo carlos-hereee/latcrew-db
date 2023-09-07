@@ -1,4 +1,4 @@
-const msg = require("../../data/error.message.json");
+const msg = require("../../../db/data/error.message.json");
 
 module.exports = (req, res, next) => {
   // check if user exists

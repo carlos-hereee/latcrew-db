@@ -1,6 +1,6 @@
 const defaultState = require("../../data/defaultState.json");
 const savePage = require("../../db/models/page/savePage");
-const msg = require("../../data/error.message.json");
+const msg = require("../../../db/data/error.message.json");
 
 module.exports = async (req, res) => {
   if (req.user) {
