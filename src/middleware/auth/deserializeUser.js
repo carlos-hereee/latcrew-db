@@ -5,13 +5,13 @@ module.exports = async (req, res, next) => {
   const { accessToken, refreshToken } = req.cookies;
   if (!accessToken && refreshToken) {
     const { payload } = verifyJWT(refreshToken);
-    console.log("has refreshToken ");
+    // console.log("has refreshToken ");
     if (payload) {
       req.user = await getUser({ sessionId: payload });
     }
   }
   if (accessToken) {
-    console.log("has accessToken");
+    // console.log("has accessToken");
     const { payload } = verifyJWT(accessToken);
     // Access token is valid
     if (payload) {
