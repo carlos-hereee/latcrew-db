@@ -13,6 +13,7 @@ const app = express();
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({ credentials: true, origin: [clientUrl, clientUrlAlt] }));
 
 // middleware for all functions

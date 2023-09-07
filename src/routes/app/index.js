@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { getAppId, requireApp } = require("../../middleware/app");
+const uploadFields = require("../../utils/multer/uploadFields");
 const uploadSingle = require("../../utils/multer/uploadSingle");
 const buildApp = require("./buildApp");
 const getFiles = require("./getFiles");

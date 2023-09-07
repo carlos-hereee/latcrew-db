@@ -1,19 +1,18 @@
 const multer = require("multer");
 
 module.exports = multer.diskStorage({
-  // destination
-  destination: (req, file, cb) => {
-    // where should files be stored on disk
-    cb(null, "uploads");
-  },
+  // where should files be stored on disk
+  destination: (req, file, cb) => cb(null, "uploads"),
   filename: (req, file, cb) => {
-    // set the file name on uploads folder
-    cb(null, file.filename + "-" + Date.now());
+    // custom file name on uploads folder
+    let fileName = file.filename
+      ? `${file.filename}-${req.user.appId}`
+      : `${file.fieldname}-${req.user.appId}`;
+    cb(null, fileName + "-" + Date.now());
   },
   fileFilter: (req, file, cb) => {
-    // set
+    // to refect file pass 'false' or pass an error
     if (file.minetype !== "text/yaml" || file.minetype !== "text/x-yaml") {
-      // to refect file pass 'false' or pass an error
       cb(new Error("forbideen file type"));
       // to accept pass true
     } else cb(null, true);
