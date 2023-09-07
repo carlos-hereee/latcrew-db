@@ -1,4 +1,4 @@
-const msg = require("../../../db/data/error.message.json");
+const msg = require("../../db/data/error.message.json");
 
 module.exports = (req, res, next) => {
   const message = msg.userDoesNotExist;

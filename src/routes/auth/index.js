@@ -8,8 +8,8 @@ const login = require("./login");
 const logout = require("./logout");
 const changePassword = require("./changePassword");
 // custom middleware
-const { verifyCredentials, validateUser, requireUser } = require("../middleware/auth");
-const { validatePassword, verifyUser } = require("../middleware/auth");
+const { verifyCredentials, validateUser, requireUser } = require("../../middleware/auth");
+const { validatePassword, verifyUser } = require("../../middleware/auth");
 // one liners
 const validateWare = [verifyCredentials, validateUser, requireUser, validatePassword];
 const credentialWare = [verifyCredentials, validateUser];

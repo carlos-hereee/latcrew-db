@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const requireUser = require("../middleware/auth/requireUser");
-const { getCalendar } = require("../middleware/calendar");
+const requireUser = require("../../middleware/auth/requireUser");
+const { getCalendar } = require("../../middleware/calendar");
 const addEvent = require("./addEvent");
 const fetchCalendar = require("./fetchCalendar");
 

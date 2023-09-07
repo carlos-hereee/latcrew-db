@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getAppId, requireApp } = require("../middleware/app");
+const { getAppId, requireApp } = require("../../middleware/app");
 const getFiles = require("./getFiles");
 const latest = require("./latest");
 const updateApp = require("./updateApp");

@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const routes = require("./routes");
 const connectMongoose = require("./db/connectMongoose");
 const { clientUrl, clientUrlAlt } = require("../config.env");
-const { deserializeUser } = require("./routes/middleware/auth");
+const { deserializeUser } = require("./middleware/auth");
 
 // create an express app
 const app = express();
