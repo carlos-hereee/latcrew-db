@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { getAppId, requireApp } = require("../../middleware/app");
+const uploadSingle = require("../../utils/multer/uploadSingle");
 const buildApp = require("./buildApp");
 const getFiles = require("./getFiles");
 const latest = require("./latest");
@@ -11,7 +12,7 @@ router.get("/latest", latest);
 router.get("/files", getFiles);
 
 router.post("/file-upload", uploadFile);
-router.post("/build-app", buildApp);
+router.post("/build-app", uploadSingle("logo"), buildApp);
 router.post("/update-app", getAppId, requireApp, updateApp);
 
 module.exports = router;

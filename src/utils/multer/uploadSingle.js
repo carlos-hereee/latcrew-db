@@ -1,4 +1,4 @@
 const multer = require("multer");
 const storage = require("./storage");
 
-module.exports = multer({ storage: storage });
+module.exports = (name) => multer({ storage: storage }).single(name);
