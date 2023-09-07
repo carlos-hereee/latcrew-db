@@ -10,6 +10,10 @@ const heroSchema = new Schema(
     alt: { type: String },
     name: { type: String },
     theme: { type: String },
+    filename: { type: String },
+    minetype: { type: String },
+    encoding: { type: String },
+    size: { type: Number },
     credit: {
       artistName: { type: String },
       artistUrl: { type: String },

@@ -7,7 +7,7 @@ const appSchema = new Schema(
     appId: { type: String, default: appId, require: true },
     languageId: { type: String, default: "english-en" },
     locale: { type: String, default: "en" },
-    name: { type: String, default: "Sparkle and Shine" },
+    appName: { type: String, default: "Sparkle and Shine" },
     theme: { type: String, default: "light" },
     logo: {
       heroId: { type: String, default: "sparke-shine-logo" },
