@@ -3,7 +3,7 @@ const saveApp = require("../../db/models/app/saveApp");
 const { baseUrl } = require("../../../config.env");
 
 module.exports = async (req, res) => {
-  const { appId, userId, language } = req.user;
+  const { appId, language } = req.user;
   const { appName } = req.body;
   const { filename, size, encoding, minetype, path } = req.file;
   // store app
