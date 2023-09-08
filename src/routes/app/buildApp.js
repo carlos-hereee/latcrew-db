@@ -1,5 +1,6 @@
 const { v4 } = require("uuid");
 const saveApp = require("../../db/models/app/saveApp");
+const { baseUrl } = require("../../../config.env");
 
 module.exports = async (req, res) => {
   const { appId, userId, language } = req.user;
@@ -11,7 +12,7 @@ module.exports = async (req, res) => {
     languageId: language.languageId,
     appName,
     logo: {
-      url: path,
+      url: `${baseUrl}/${path}`,
       name: appName,
       logoId: v4(),
       filename,
