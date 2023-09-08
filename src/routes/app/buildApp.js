@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
     logo: {
       url: `${baseUrl}/${path}`,
       name: appName,
+      label: appName,
       logoId: v4(),
       filename,
       minetype,

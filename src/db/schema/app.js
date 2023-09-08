@@ -16,6 +16,7 @@ const appSchema = new Schema(
       filename: { type: String },
       minetype: { type: String },
       theme: { type: String },
+      label: { type: String },
       encoding: { type: String },
       size: { type: Number },
     },
