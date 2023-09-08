@@ -10,7 +10,14 @@ const appSchema = new Schema(
     appName: { type: String, default: "Sparkle and Shine" },
     theme: { type: String, default: "light" },
     logo: {
-      heroId: { type: String, default: "sparke-shine-logo" },
+      url: { type: String, require: true },
+      name: { type: String },
+      logoId: { type: String },
+      filename: { type: String },
+      minetype: { type: String },
+      theme: { type: String },
+      encoding: { type: String },
+      size: { type: Number },
     },
     newsletter: {
       title: { type: String, default: "Join the newsletter" },

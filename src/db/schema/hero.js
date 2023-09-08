@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const heroSchema = new Schema(
   {
-    userId: { type: String, require: true, unique: true },
     heroId: { type: String, require: true, unique: true },
     url: { type: String, require: true },
+    userId: { type: String },
+    appId: { type: String },
     small: { type: String },
     alt: { type: String },
     name: { type: String },

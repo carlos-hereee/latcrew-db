@@ -14,11 +14,12 @@ const userSchema = new Schema(
     password: { type: String, required: true, select: false },
     salt: { type: String, select: false },
     sessionId: { type: String, select: false },
+    heroId: { type: String },
     language: {
       name: { type: String, default: "english" },
       label: { type: String, default: "English" },
       locale: { type: String, default: "en" },
-      url: { type: String, default: "icons/english.svg" },
+      heroId: { type: String },
       languageId: { type: String, default: "english-en" },
     },
   },
