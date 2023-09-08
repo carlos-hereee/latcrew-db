@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ credentials: true, origin: [clientUrl, clientUrlAlt] }));
 // serve asset files
 app.use(express.static(__dirname + "public"));
-app.use("/public", express.static("public"));
+// app.use("/public", express.static("public"));
 
 // middleware for all functions
 app.use(deserializeUser);

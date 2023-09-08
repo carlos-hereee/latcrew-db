@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = (req, res) => {
   const filePath = path.resolve() + `/public/${req.params.assetId}`;
-  // const fileStatus = fs.
-  console.log("filePath", filePath);
-  // res.sendFile(filePath);
+  // set propper content type else drowser will download file
+  res.setHeader("Content-Type", "image/svg+xml");
+  res.sendFile(filePath);
 };

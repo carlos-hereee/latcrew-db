@@ -11,7 +11,7 @@ module.exports = (app) => {
     res.status(200).json(message).end();
   });
   // // assets route
-  // app.use("/public", publicRoute);
+  app.use("/public", publicRoute);
   // authentication route for login and access/refresh tokens
   app.use("/auth/", authRoute);
   // app data
