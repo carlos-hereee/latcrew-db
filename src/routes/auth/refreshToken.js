@@ -14,5 +14,5 @@ module.exports = async (req, res) => {
     payload.user = req.user;
     payload.language = req.user.language;
     return res.status(200).json(payload).end();
-  } else res.status(400).json(payload).end();
+  } else res.status(204).json(payload).end();
 };

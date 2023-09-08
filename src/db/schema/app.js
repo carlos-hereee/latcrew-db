@@ -40,11 +40,11 @@ const appSchema = new Schema(
     },
     menu: [
       {
-        menuItemId: { type: String },
+        menuId: { type: String },
         isToggle: { type: Boolean, default: false },
         isPrivate: { type: Boolean, default: false },
         active: {
-          uid: { type: String },
+          menuItemId: { type: String },
           label: { type: String },
           link: { type: String },
           icon: { type: String },
@@ -54,7 +54,7 @@ const appSchema = new Schema(
         },
         alternatives: [
           {
-            uid: { type: String },
+            menuItemId: { type: String },
             label: { type: String },
             link: { type: String },
             icon: { type: String },
