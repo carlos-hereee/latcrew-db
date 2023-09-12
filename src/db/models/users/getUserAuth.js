@@ -1,10 +1,12 @@
-const Users = require("../../schema/user");
+const { Users } = require("../../schema/user");
 
-module.exports = async ({ username, refreshToken }) => {
+module.exports = async ({ username }) => {
   if (username) {
-    return await Users.findOne({ username }).select("+salt +password");
+    return await Users.findOne({ auth: { username } }).select(
+      "+auth.salt +auth.password"
+    );
   }
-  if (refreshToken) {
-    return await Users.findOne({ refreshToken });
-  }
+  // if (refreshToken) {
+  //   return await Users.findOne({ auth: { sessionId: refreshToken } });
+  // }
 };

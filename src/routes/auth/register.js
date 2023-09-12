@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
   const salt = random();
   const password = generateHash(salt, req.body.password);
   const sessionId = generateHash(salt, userId);
-  await saveUser({ userId, email, username, salt, password, sessionId });
+  await saveUser({ userId, auth: { email, username, salt, password, sessionId } });
 
   // create session cookie
   const { accessToken } = storeCookies(res, username, sessionId);

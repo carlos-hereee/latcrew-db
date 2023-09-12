@@ -1,4 +1,4 @@
-const Users = require("../../schema/user");
+const { Users } = require("../../schema/user");
 
 module.exports = async ({ username, email, userId, all, sessionId }) => {
   if (username) {
@@ -11,7 +11,7 @@ module.exports = async ({ username, email, userId, all, sessionId }) => {
     return await Users.findOne({ email });
   }
   if (sessionId) {
-    return await Users.findOne({ sessionId });
+    return await Users.findOne({ auth: { sessionId } });
   }
   if (all) {
     return await Users.find();
