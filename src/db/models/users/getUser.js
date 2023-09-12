@@ -1,6 +1,6 @@
 const { Users } = require("../../schema/user");
 
-module.exports = async ({ username, email, userId, all, sessionId }) => {
+module.exports = async ({ username, email, userId, all, appId }) => {
   if (username) {
     return await Users.findOne({ username });
   }
@@ -10,8 +10,8 @@ module.exports = async ({ username, email, userId, all, sessionId }) => {
   if (email) {
     return await Users.findOne({ email });
   }
-  if (sessionId) {
-    return await Users.findOne({ auth: { sessionId } });
+  if (appId) {
+    return await Users.find({ appId });
   }
   if (all) {
     return await Users.find();
