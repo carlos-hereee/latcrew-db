@@ -6,13 +6,13 @@ const { appId } = require("../../../config.env");
 const userSchema = new Schema(
   {
     userId: { type: String, require: true, unique: true },
+    username: { type: String, require: true, unique: true },
+    email: { type: String, set: toLower },
+    role: { type: String, default: "client" },
     auth: {
-      username: { type: String, require: true, unique: true },
-      email: { type: String, set: toLower, unique: true },
-      password: { type: String, required: true, select: false },
       salt: { type: String, select: false },
-      role: { type: String, default: "client" },
       sessionId: { type: String, select: false },
+      password: { type: String, required: true, select: false },
     },
     appId: { type: String, default: appId },
     nickname: { type: String },
