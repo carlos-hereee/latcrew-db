@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const toLower = require("../../utils/lowerCase");
 
 const componentSchema = new Schema(
   {
@@ -18,7 +19,7 @@ const componentSchema = new Schema(
         heroId: { type: String, unique: true },
         uid: { type: String, unique: true },
         name: { type: String },
-        icon: { type: string },
+        icon: { type: String, set: toLower },
         theme: { type: String },
         name: { type: String },
         title: { type: String },
@@ -28,7 +29,7 @@ const componentSchema = new Schema(
     cta: [
       {
         uid: { type: String, unique: true },
-        icon: { type: String },
+        icon: { type: String, set: toLower },
         label: { type: String },
         name: { type: String },
         title: { type: String },

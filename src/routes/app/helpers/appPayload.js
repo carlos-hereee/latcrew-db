@@ -1,3 +1,5 @@
+const { v4 } = require("uuid");
+
 const loginPayload = (menuItemId) => {
   return { name: "login", label: "login", icon: "login", link: "login", menuItemId };
 };
@@ -30,5 +32,24 @@ const appPayload = (appId, languageId, appName, logo) => {
     ],
   };
 };
-
-module.exports = { loginPayload, dashboardPayload, appPayload, menuItemPayload };
+const pagePayload = (appId, languageId, reqBody, heroId) => {
+  const { title, name, cta, sections, body } = reqBody;
+  return {
+    appId,
+    languageId,
+    pageId: v4(),
+    heroId,
+    title,
+    name,
+    body,
+    cta: cta ? cta : [{}],
+    sections: sections ? sections : [{}],
+  };
+};
+module.exports = {
+  loginPayload,
+  dashboardPayload,
+  appPayload,
+  menuItemPayload,
+  pagePayload,
+};

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const { appId } = require("../../../config.env");
+const toLower = require("../../utils/lowerCase");
 
 const appSchema = new Schema(
   {
@@ -47,7 +48,7 @@ const appSchema = new Schema(
           menuItemId: { type: String },
           label: { type: String },
           link: { type: String },
-          icon: { type: String },
+          icon: { type: String, set: toLower },
           name: { type: String },
           ping: { type: Number },
           lang: { type: String },
@@ -57,7 +58,7 @@ const appSchema = new Schema(
             menuItemId: { type: String },
             label: { type: String },
             link: { type: String },
-            icon: { type: String },
+            icon: { type: String, set: toLower },
             name: { type: String },
             ping: { type: Number },
             lang: { type: String },
