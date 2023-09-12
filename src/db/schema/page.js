@@ -11,7 +11,7 @@ const pageSchema = new Schema(
     heroId: { type: String },
     title: { type: String },
     body: { type: String },
-    response: { type: String },
+    details: { type: String },
     name: { type: String },
     theme: { type: String },
     sections: [{ componentId: { type: String, unique: true } }],
