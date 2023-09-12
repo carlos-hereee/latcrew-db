@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const { getAppId, requireApp } = require("../../middleware/app");
+const { getApp, requireApp } = require("../../middleware/app");
 const { requireUser } = require("../../middleware/auth");
-const uploadFields = require("../../utils/multer/uploadFields");
 const uploadSingle = require("../../utils/multer/uploadSingle");
+const addPage = require("./addPage");
 const buildApp = require("./buildApp");
 const deleteApp = require("./deleteApp");
 const getFiles = require("./getFiles");
@@ -16,7 +16,9 @@ router.get("/files", getFiles);
 // build app data
 router.post("/file-upload", uploadFile);
 router.post("/build-app", uploadSingle("logo"), buildApp);
-router.post("/update-app", getAppId, requireApp, updateApp);
+router.post("/update-app", getApp, requireApp, updateApp);
+// building pages
+router.post("/add-page", getApp, requireApp, uploadSingle("hero"), addPage);
 // delete app
 router.delete("/delete-app", deleteApp);
 

@@ -1,4 +1,4 @@
-const getAppId = require("./getAppId");
+const getApp = require("./getApp");
 const requireApp = require("./requireApp");
 
-module.exports = { getAppId, requireApp };
+module.exports = { getApp, requireApp };
