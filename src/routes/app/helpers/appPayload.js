@@ -1,7 +1,7 @@
 const { v4 } = require("uuid");
 
 const loginPayload = (menuItemId) => {
-  return { name: "login", label: "login", icon: "login", link: "login", menuItemId };
+  return { name: "login", label: "login", icon: "user", link: "login", menuItemId };
 };
 const dashboardPayload = (menuItemId) => {
   return {
@@ -15,13 +15,13 @@ const dashboardPayload = (menuItemId) => {
 const menuItemPayload = (menuItemId, name, link) => {
   return { menuItemId, name, link, label: name, icon: name };
 };
-const appPayload = (appId, languageId, appName, logo) => {
+const appPayload = (appId, languageId, appName, logoId) => {
   const menuItemId = v4();
   return {
     appId: appId ? appId : v4(),
     languageId,
     appName,
-    logo,
+    logoId,
     menu: [
       {
         menuId: v4(),

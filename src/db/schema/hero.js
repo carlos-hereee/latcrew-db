@@ -1,21 +1,30 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const toLower = require("../../utils/lowerCase");
 
 const heroSchema = new Schema(
   {
+    // key variables
     heroId: { type: String, require: true, unique: true },
-    url: { type: String, require: true },
     userId: { type: String },
     appId: { type: String },
+    languageId: { type: String },
+    // asset
     small: { type: String },
+    url: { type: String },
     alt: { type: String },
+    link: { type: String },
+    icon: { type: String, set: toLower },
     name: { type: String },
     label: { type: String },
     theme: { type: String },
+    ping: { type: Number },
+    // multer options
     filename: { type: String },
     minetype: { type: String },
     encoding: { type: String },
     size: { type: Number },
+    // 3rd party asset
     credit: {
       artistName: { type: String },
       artistUrl: { type: String },
