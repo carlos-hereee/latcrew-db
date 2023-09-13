@@ -13,5 +13,6 @@
   "missingCredentials": "Missing one or more credentials",
   "serverIsDown": "Server is down, try again later.",
   "adminRequired": "Permission not met/granted",
-  "calendarNotFound": "Not found: Calendar for this app has not been created"
+  "calendarNotFound": "Not found: Calendar for this app has not been created",
+  "passwordAlreadyInHistory": "Password used in the passed."
 }

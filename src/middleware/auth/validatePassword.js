@@ -6,11 +6,13 @@ module.exports = async (req, res, next) => {
   const password = req.body.password ? req.body.password : req.body.oldPassword;
   // use previous salt with password regenerate hash password
   const expectedHash = generateHash(req.user.auth.salt, password);
+  // console.log("password", req.user.auth);
+  // console.log("expectedHash", expectedHash);
   // validate password
   if (expectedHash === req.user.auth.password) {
-    return next();
+    next();
   } else {
     const message = msg.invalidCredentails;
-    return res.status(403).json(message).end();
+    res.status(403).json(message).end();
   }
 };

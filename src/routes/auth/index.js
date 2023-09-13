@@ -9,8 +9,7 @@ const logout = require("./logout");
 const changePassword = require("./changePassword");
 // custom middleware
 const { validateUser, requireUser, authenticateUser } = require("../../middleware/auth");
-const { validatePassword } = require("../../middleware/auth");
-const forgotPassword = require("./forgotPassword");
+const { validatePassword, addPassHistory } = require("../../middleware/auth");
 const updatePassword = require("../../middleware/auth/updatePassword");
 // one liners
 const validateWare = [validateUser, requireUser, validatePassword];
@@ -26,7 +25,7 @@ router.post("/login", validateWare, login);
 router.post("/refresh-token", requireUser, refreshToken);
 router.post("/change-password", validateWare, updatePassword, changePassword);
 // TODO: ADD ADDITIONAL VERFICATION MEDTHODS
-router.post("/forgot-password", userWare, updatePassword, forgotPassword);
+router.post("/forgot-password", userWare, updatePassword, changePassword);
 // log out
 router.delete("/logout", requireUser, logout);
 

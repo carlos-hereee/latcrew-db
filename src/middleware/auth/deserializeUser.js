@@ -9,10 +9,10 @@ module.exports = async (req, res, next) => {
     const token = accessToken ? accessToken : refreshToken;
     // validate token
     const { username, sessionId, error } = verifyJWT(token);
-    if (error) console.log("error  verifying JWT", error);
+    if (error.error) console.log("error  verifying JWT", error);
     if (username) req.user = await getUserAuth({ username });
-    else if (sessionId) req.user = await getUserAuth({ username });
-    return next();
+    else if (sessionId) req.user = await getUserAuth({ sessionId });
+    next();
   } catch (error) {
     useGenericErrors(res, error);
   }
