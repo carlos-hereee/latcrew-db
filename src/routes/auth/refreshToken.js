@@ -1,5 +1,6 @@
 const makeSession = require("../../utils/auth/makeSession");
 const useGenericErrors = require("../../utils/auth/useGenericErrors");
+const usePublicUserData = require("../../utils/auth/usePublicUserData");
 const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {
@@ -12,7 +13,8 @@ module.exports = async (req, res) => {
     await req.user.save();
     // create  cookies
     const { accessToken } = storeCookies(res, req.user.username, sessionId);
-    res.status(200).json(accessToken).end();
+    const user = usePublicUserData(req.user);
+    res.status(200).json({ accessToken, user }).end();
   } catch (error) {
     useGenericErrors(error);
   }
