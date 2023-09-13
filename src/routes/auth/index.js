@@ -14,6 +14,7 @@ const updatePassword = require("../../middleware/auth/updatePassword");
 // one liners
 const validateWare = [validateUser, requireUser, validatePassword];
 const userWare = [validateUser, requireUser];
+const changePasswordWare = [addPassHistory, updatePassword, changePassword];
 
 // get
 router.get("/", requireUser, userRoute);
@@ -22,10 +23,10 @@ router.get("/user/:username", userWare, getWithUsername);
 // post
 router.post("/register", validateUser, authenticateUser, register);
 router.post("/login", validateWare, login);
-router.post("/refresh-token", requireUser, refreshToken);
-router.post("/change-password", validateWare, updatePassword, changePassword);
+router.post("/refresh-token", refreshToken);
+router.post("/change-password", validateWare, changePasswordWare);
 // TODO: ADD ADDITIONAL VERFICATION MEDTHODS
-router.post("/forgot-password", userWare, updatePassword, changePassword);
+router.post("/forgot-password", userWare, changePasswordWare);
 // log out
 router.delete("/logout", requireUser, logout);
 

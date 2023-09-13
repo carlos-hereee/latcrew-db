@@ -7,5 +7,5 @@ module.exports = (req, res, next) => {
   if (!req.user.auth.passwordHistory.includes(oldPassword)) {
     req.user.auth.passwordHistory = [...req.user.auth.passwordHistory, oldPassword];
     next();
-  } else res.statu(400).json(messages.passwordAlreadyInHistory).end();
+  } else res.status(400).json(messages.passwordAlreadyInHistory).end();
 };
