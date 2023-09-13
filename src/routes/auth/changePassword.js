@@ -1,7 +1,6 @@
+const { isDev } = require("../../../config.env");
 const msg = require("../../db/data/error.message.json");
-// const successMessage = require("../../../db/data/success.message.json");
 const generateHash = require("../../utils/auth/generateHash");
-const generateValidUserData = require("../../utils/auth/generateValidUserData");
 const makeSession = require("../../utils/auth/makeSession");
 const storeCookies = require("../../utils/cookies/storeCookies");
 
@@ -16,10 +15,10 @@ module.exports = async (req, res) => {
     await req.user.save();
     // create new cookies
     const { accessToken } = storeCookies(res, req.user.username, sessionId);
-    const user = generateValidUserData(req.user);
-    res.status(200).json({ accessToken, user }).end();
+    // const user = generateValidUserData(req.user);
+    res.status(200).json(accessToken).end();
   } catch (error) {
-    console.log("error", error);
+    isDev && console.log("error", error);
     res.status(500).json(msg.serverIsDown).end();
   }
 };
