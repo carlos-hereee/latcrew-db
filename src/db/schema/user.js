@@ -12,6 +12,7 @@ const userSchema = new Schema(
       salt: { type: String, select: false },
       sessionId: { type: String, select: false },
       password: { type: String, required: true, select: false },
+      passwordHistory: [{ type: String, select: false }],
     },
     appId: { type: String },
     nickname: { type: String },

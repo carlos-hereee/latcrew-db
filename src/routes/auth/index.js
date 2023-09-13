@@ -10,6 +10,7 @@ const changePassword = require("./changePassword");
 // custom middleware
 const { validateUser, requireUser, verifyUser } = require("../../middleware/auth");
 const { validatePassword } = require("../../middleware/auth");
+const forgotPassword = require("./forgotPassword");
 // one liners
 const validateWare = [validateUser, requireUser, validatePassword];
 
@@ -22,6 +23,7 @@ router.post("/login", validateWare, login);
 router.post("/refresh-token", requireUser, refreshToken);
 // put
 router.post("/change-password", validateWare, changePassword);
+router.post("/forgot-password", validateUser, requireUser, forgotPassword);
 // log out
 router.delete("/logout", requireUser, logout);
 

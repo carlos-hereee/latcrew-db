@@ -1,7 +1,7 @@
 const { Users } = require("../../schema/user");
 
 module.exports = async ({ username, sessionId }) => {
-  const selectOption = "+auth.salt +auth.password +auth.sessionId";
+  const selectOption = "+auth.salt +auth.password +auth.sessionId +auth.passwordHistory";
   if (username) {
     return await Users.findOne({ username }).select(selectOption);
   }
