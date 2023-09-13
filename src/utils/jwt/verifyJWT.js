@@ -12,6 +12,6 @@ module.exports = (token) => {
       message: isExpired ? msg.payloadExpired : msg.notVerfifed,
     };
     const { username, sessionId } = decoded;
-    return { payload: username ? username : sessionId, error };
+    return { username, sessionId, error };
   });
 };

@@ -1,7 +1,6 @@
-const { isDev } = require("../../../config.env");
-const msg = require("../../db/data/error.message.json");
 const generateHash = require("../../utils/auth/generateHash");
 const makeSession = require("../../utils/auth/makeSession");
+const useGenericErrors = require("../../utils/auth/useGenericErrors");
 const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {
@@ -18,7 +17,6 @@ module.exports = async (req, res) => {
     // const user = generateValidUserData(req.user);
     res.status(200).json(accessToken).end();
   } catch (error) {
-    isDev && console.log("error", error);
-    res.status(500).json(msg.serverIsDown).end();
+    useGenericErrors(res, error);
   }
 };

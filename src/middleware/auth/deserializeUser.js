@@ -1,20 +1,19 @@
-const getUser = require("../../db/models/users/getUser");
 const getUserAuth = require("../../db/models/users/getUserAuth");
+const useGenericErrors = require("../../utils/auth/useGenericErrors");
 const verifyJWT = require("../../utils/jwt/verifyJWT");
 
 module.exports = async (req, res, next) => {
-  const { accessToken, refreshToken } = req.cookies;
-  if (!accessToken && refreshToken) {
+  try {
+    // key variables
+    const { accessToken, refreshToken } = req.cookies;
+    const token = accessToken ? accessToken : refreshToken;
     // validate token
-    const { payload } = verifyJWT(refreshToken);
-    // console.log("refresh token payload ", payload);
-    req.user = await getUserAuth({ sessionId: payload });
+    const { username, sessionId, error } = verifyJWT(token);
+    if (error) console.log("error", error);
+    if (username) req.user = await getUserAuth({ username });
+    else if (sessionId) req.user = await getUserAuth({ username });
+    return next();
+  } catch (error) {
+    useGenericErrors(res, error);
   }
-  if (accessToken) {
-    // validate token
-    const { payload } = verifyJWT(accessToken);
-    req.user = await getUser({ username: payload });
-  }
-  // console.log("deserialized user ", req.user?.userId);
-  return next();
 };
