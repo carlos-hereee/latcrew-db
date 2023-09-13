@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
   if (!accessToken && refreshToken) {
     // validate token
     const { payload } = verifyJWT(refreshToken);
-    console.log("payload", payload);
+    // console.log("refresh token payload ", payload);
     req.user = await getUserAuth({ sessionId: payload });
   }
   if (accessToken) {
@@ -15,6 +15,6 @@ module.exports = async (req, res, next) => {
     const { payload } = verifyJWT(accessToken);
     req.user = await getUser({ username: payload });
   }
-  console.log("req.user", req.user);
+  // console.log("deserialized user ", req.user?.userId);
   return next();
 };
