@@ -1,21 +1,25 @@
 const msg = require("../../db/data/error.message.json");
 // const successMessage = require("../../../db/data/success.message.json");
-const successMessage = require("../../db/data/success.message.json");
+const generateHash = require("../../utils/auth/generateHash");
+const generateValidUserData = require("../../utils/auth/generateValidUserData");
+const makeSession = require("../../utils/auth/makeSession");
+const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {
-  console.log("req.body", req.body);
-  // change password
-  // if (req.body.newPassword) {
-  //   // if request has newPassword field hash newpassword
-  //   req.user = { ...req.user, password: hashPassword(req.body.newPassword, 10) };
-  // }
-
-  // const updatedPassword = await updatePassword(req.credentials.uid, req.credentials);
-  // if (updatedPassword.acknowledged) {
-  //   const message = successMessage.passwordChanged;
-  //   return res.status(200).json(message).end();
-  // } else {
-  //   const message = msg.serverIsDown;
-  //   return res.status(500).json(message).end();
-  // }
+  try {
+    // key variables
+    const { newPassword } = req.body;
+    // update password and genereate new sessionId (should log everyone out)
+    const sessionId = makeSession(req.user.userId);
+    req.user.auth.sessionId = sessionId;
+    req.user.auth.password = generateHash(newPassword, 10);
+    await req.user.save();
+    // create new cookies
+    const { accessToken } = storeCookies(res, req.user.username, sessionId);
+    const user = generateValidUserData(req.user);
+    res.status(200).json({ accessToken, user }).end();
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json(msg.serverIsDown).end();
+  }
 };
