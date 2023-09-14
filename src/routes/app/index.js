@@ -6,6 +6,7 @@ const addPage = require("./addPage");
 const buildApp = require("./buildApp");
 const deleteApp = require("./deleteApp");
 const getFiles = require("./getFiles");
+const getOwnedApps = require("./getOwnedApps");
 const initAppPayload = require("./initAppPayload");
 const latest = require("./latest");
 const updateApp = require("./updateApp");
@@ -15,6 +16,7 @@ const appWare = [getApp, requireApp];
 
 // load app data
 router.get("/latest/:appId", requireUser, latest);
+router.get("/ownedApps", requireUser, getOwnedApps);
 router.get("/files", getFiles);
 // build app data
 router.post("/upload-file", saveAsset, uploadFile);
