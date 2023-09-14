@@ -22,6 +22,7 @@ const appPayload = (appId, languageId, appName, logoId) => {
     languageId,
     appName,
     logoId,
+    themeList: ["light-mode", "dark-mode"],
     menu: [
       {
         menuId: v4(),
@@ -30,6 +31,7 @@ const appPayload = (appId, languageId, appName, logoId) => {
         alternatives: [loginPayload(menuItemId), dashboardPayload(v4())],
       },
     ],
+    calendar: { name: appName, calendarId: v4(), events: [] },
   };
 };
 const pagePayload = (appId, languageId, reqBody, heroId) => {

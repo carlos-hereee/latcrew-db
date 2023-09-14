@@ -5,8 +5,7 @@ const { appId } = require("../../../config.env");
 const appSchema = new Schema(
   {
     appId: { type: String, default: appId, require: true },
-    languageId: { type: String, default: "english-en" },
-    locale: { type: String, default: "en" },
+    languageId: { type: String },
     appName: { type: String },
     themeList: [{ type: String }],
     logoId: { type: String },

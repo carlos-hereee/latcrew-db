@@ -7,13 +7,10 @@ module.exports = async (req, res) => {
   // key variables
   const languageId = req.user.languageId;
   const appId = req.user.appId;
-  const logoId = req.hero.heroId;
-  // save logo to asset
+  const logoId = req.hero ? req.hero.heroId : v4();
+  const appName = req.body.appName;
 
-  const { appName } = req.body;
-  // console.log("req.file", req.file);
   const payload = appPayload(appId, languageId, appName, logoId);
-  // console.log("req.hero", req.hero);
   console.log("payload", payload);
   // const app = await saveApp(payload);
   // res.status(202).json(app).end();
