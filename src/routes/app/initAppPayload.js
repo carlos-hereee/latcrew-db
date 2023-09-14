@@ -2,26 +2,27 @@ const { v4 } = require("uuid");
 const useGenericErrors = require("../../utils/auth/useGenericErrors");
 const saveHero = require("../../db/models/hero/saveHero");
 
-const menuItemPayload = ({ menuItemId, name, link, icon }) => {
-  return { menuItemId, name, link, label: name, icon };
+// menu items values saved in Hero db
+const menuItem = ({ heroId, name, link, icon }) => {
+  return { heroId, name, link, label: name, icon, type: "menu-item" };
 };
 module.exports = async (req, res, next) => {
   try {
     // key variables
     const appId = v4();
-    const appName = req.body.appName;
-    const userId = req.user.userId;
-    const languageId = req.user.languageId ? req.user.languageId : "";
     const menuId = v4();
     const loginMenuId = v4();
+    const dashMenuId = v4();
+    const appName = req.body.appName;
+    const userId = req.user.userId;
+    const languageId = req.user.languageId;
     const loginValues = { name: "login", link: "login", icon: "user" };
-    const dashboardMenuId = v4();
     const dashValues = { name: "dashboard", link: "dashboard", icon: "user" };
-    const loginPayload = menuItemPayload({ ...loginValues, menuItemId: loginMenuId });
-    const dashPayload = menuItemPayload({ ...dashValues, menuItemId: dashboardMenuId });
+    const loginPayload = menuItem({ ...loginValues, heroId: loginMenuId });
+    const dashPayload = menuItem({ ...dashValues, heroId: dashMenuId });
     // save menu item assets values
-    await saveHero({ ...loginPayload, userId, heroId: loginMenuId });
-    await saveHero({ ...dashPayload, userId, heroId: dashboardMenuId });
+    await saveHero(loginPayload);
+    await saveHero(dashPayload);
     // set init app
     req.app = {
       appId,
@@ -33,8 +34,8 @@ module.exports = async (req, res, next) => {
         {
           menuId,
           isPrivate: true,
-          active: loginPayload,
-          alternatives: [loginPayload, dashPayload],
+          active: { menuItemId: loginMenuId },
+          alternatives: [{ menuItemId: loginMenuId }, { menuItemId: dashMenuId }],
         },
       ],
       calendar: { name: appName, calendarId: v4(), events: [] },

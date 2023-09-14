@@ -16,6 +16,7 @@ const heroSchema = new Schema(
     name: { type: String },
     label: { type: String },
     theme: { type: String },
+    type: { type: String },
     ping: { type: Number },
     // multer options
     filename: { type: String },
