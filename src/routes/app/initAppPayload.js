@@ -11,15 +11,15 @@ module.exports = async (req, res, next) => {
     // key variables
     const appId = v4();
     const menuId = v4();
-    const loginMenuId = v4();
-    const dashMenuId = v4();
+    const loginId = v4();
+    const dashId = v4();
     const appName = req.body.appName;
     const userId = req.user.userId;
     const languageId = req.user.languageId;
-    const loginValues = { name: "login", link: "login", icon: "user" };
-    const dashValues = { name: "dashboard", link: "dashboard", icon: "user" };
-    const loginPayload = menuItem({ ...loginValues, heroId: loginMenuId });
-    const dashPayload = menuItem({ ...dashValues, heroId: dashMenuId });
+    const loginData = { name: "login", link: "login", icon: "user", heroId: loginId };
+    const dashData = { name: "dashboard", link: "dashboard", icon: "user" };
+    const loginPayload = menuItem({ ...loginData, menuItemId: loginId });
+    const dashPayload = menuItem({ ...dashData, menuItemId: dashId, heroId: dashId });
     // save menu item assets values
     const login = await saveHero(loginPayload);
     const dash = await saveHero(dashPayload);
