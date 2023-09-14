@@ -1,6 +1,6 @@
 const Page = require("../../schema/page");
 
 module.exports = async (payload) => {
-  const page = new Page(payload);
-  return await page.save();
+  // const page = new Page(payload);
+  return await Page.create(payload);
 };

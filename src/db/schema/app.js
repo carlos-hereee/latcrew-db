@@ -41,7 +41,7 @@ const appSchema = new Schema(
       events: [{ eventId: { type: String } }],
     },
   },
-  { timestamps: true, _id: false }
+  { timestamps: true }
 );
 const App = mongoose.model("App", appSchema);
 module.exports = App;

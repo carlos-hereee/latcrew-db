@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const eventSchema = new Schema(
   {
     eventId: { type: String, require: true, unique: true },
-    calendarId: { type: String, require: true, default: appId },
+    calendarId: { type: String, require: true },
     heroId: { type: String },
     list: [
       {
@@ -25,7 +25,7 @@ const eventSchema = new Schema(
       },
     ],
   },
-  { timestamps: true, _id: false }
+  { timestamps: true }
 );
 const Events = mongoose.model("Events", eventSchema);
 module.exports = Events;

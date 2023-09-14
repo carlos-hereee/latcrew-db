@@ -29,7 +29,7 @@ const heroSchema = new Schema(
       assetUrl: { type: String },
     },
   },
-  { timestamps: true, _id: false }
+  { timestamps: true }
 );
 const Hero = mongoose.model("Hero", heroSchema);
 module.exports = Hero;

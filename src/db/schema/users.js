@@ -20,7 +20,7 @@ const userSchema = new Schema(
     },
     ownedApps: [{ appId: { type: String, ref: "App" } }],
   },
-  { timestamps: true, _id: false }
+  { timestamps: true }
 );
 const Users = mongoose.model("Users", userSchema);
 module.exports = { Users, userSchema };

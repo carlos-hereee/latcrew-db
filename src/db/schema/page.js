@@ -7,7 +7,7 @@ const pageSchema = new Schema(
   {
     pageId: { type: String, require: true, unique: true },
     userId: { type: String, require: true },
-    appId: { type: String, default: appId },
+    appId: { type: String },
     languageId: { type: String, require: true },
     heroId: { type: String },
     title: { type: String },
@@ -27,7 +27,7 @@ const pageSchema = new Schema(
       },
     ],
   },
-  { timestamps: true, _id: false }
+  { timestamps: true }
 );
 const Page = mongoose.model("Page", pageSchema);
 module.exports = Page;
