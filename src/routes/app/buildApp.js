@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     // save app
     await saveApp(req.app);
     // add to ownedApps
-    req.user.ownedApps = [...req.user.ownedApps, { appId }];
+    req.user.ownedApps = [...req.user.ownedApps, appId];
     // add user permissions
     req.user.permissions = [...req.user.permissions, { appId, role: "admin" }];
     req.user.save();

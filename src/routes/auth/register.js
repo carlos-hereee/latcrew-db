@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   try {
     // key variables
     const username = req.body.username;
-    const email = req.body.email;
+    const email = req.body.email || "";
     const userId = v4();
     const salt = random();
     // save protect password with hash-encryption

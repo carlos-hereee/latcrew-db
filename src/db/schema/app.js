@@ -7,20 +7,19 @@ const appSchema = new Schema(
     languageId: { type: String },
     appName: { type: String },
     themeList: [{ type: String }],
-    logoId: { type: String, ref: "Hero" },
-    // logoId: { type: Schema.Types.ObjectId, ref: "Hero" },
-    ownerId: { type: String, ref: "Users" },
-    adminIds: [{ userId: { type: String } }],
+    logoId: { type: Schema.Types.ObjectId, ref: "Hero" },
+    ownerId: { type: String },
+    adminIds: [{ type: String }],
     newsletter: {
       title: { type: String, default: "Join the newsletter" },
       subtitle: { type: String, default: "Suscribe to get the latest content by email" },
       details: { type: String, default: "Unsubscribe at any time." },
-      heroId: { type: String },
+      heroId: { type: Schema.Types.ObjectId, ref: "Hero" },
     },
     media: {
       title: { type: String, default: "Dont miss a thing! Follow us on our socials" },
       heroId: { type: String },
-      socials: [{ mediaId: { type: String } }],
+      socials: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
     },
     menu: [
       {
@@ -28,10 +27,8 @@ const appSchema = new Schema(
         isToggle: { type: Boolean, default: false },
         isPrivate: { type: Boolean, default: false },
         // menuItemId === heroId
-        active: { menuItemId: { type: String, ref: "Hero" } },
-        // active: { type: Schema.Types.ObjectId, ref: "Hero" },
-        alternatives: [{ menuItemId: { type: String, ref: "Hero" } }],
-        // alternatives: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
+        active: { type: Schema.Types.ObjectId, ref: "Hero" },
+        alternatives: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
       },
     ],
     calendar: {

@@ -9,8 +9,7 @@ const userSchema = new Schema(
     email: { type: String, set: toLower },
     nickname: { type: String },
     languageId: { type: String },
-    // heroId: { type: Schema.Types.ObjectId, ref: "Hero" },
-    heroId: { type: String, ref: "Hero" },
+    heroId: { type: Schema.Types.ObjectId, ref: "Hero" },
     permissions: [{ appId: { type: String }, role: { type: String } }],
     auth: {
       salt: { type: String, select: false },
@@ -18,7 +17,7 @@ const userSchema = new Schema(
       password: { type: String, required: true, select: false },
       passwordHistory: [{ type: String, select: false }],
     },
-    ownedApps: [{ appId: { type: String, ref: "App" } }],
+    ownedApps: [{ type: String }],
   },
   { timestamps: true }
 );

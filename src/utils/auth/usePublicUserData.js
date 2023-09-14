@@ -1,16 +1,10 @@
 module.exports = (user) => {
   // key variables
   let appId = "";
-  let ownedApps = [];
+  let ownedApps = user.ownedApps;
   let permissions = [];
   // total apps owned  is 1 make that appId
-  if (user.ownedApps.length === 1) appId = user.ownedApps[0].appId;
-  // total apps owned  more than one
-  if (user.ownedApps.length > 0) {
-    ownedApps = user.ownedApps.map((app) => {
-      return { appId: app.appId };
-    });
-  }
+  if (user.ownedApps.length === 1) appId = user.ownedApps[0];
   // total apps owned  more than one
   if (user.permissions.length > 0) {
     permissions = user.permissions.map((app) => {

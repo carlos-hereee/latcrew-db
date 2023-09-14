@@ -18,6 +18,6 @@ module.exports = async (req, res) => {
     isDev && console.log("refresh token sent");
     res.status(200).json({ accessToken, user }).end();
   } catch (error) {
-    useGenericErrors(error);
+    useGenericErrors(res, error, "refresh token errror");
   }
 };

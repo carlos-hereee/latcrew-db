@@ -21,8 +21,8 @@ module.exports = async (req, res, next) => {
     const loginPayload = menuItem({ ...loginValues, heroId: loginMenuId });
     const dashPayload = menuItem({ ...dashValues, heroId: dashMenuId });
     // save menu item assets values
-    await saveHero(loginPayload);
-    await saveHero(dashPayload);
+    const login = await saveHero(loginPayload);
+    const dash = await saveHero(dashPayload);
     // set init app
     req.app = {
       appId,
@@ -34,8 +34,8 @@ module.exports = async (req, res, next) => {
         {
           menuId,
           isPrivate: true,
-          active: { menuItemId: loginMenuId },
-          alternatives: [{ menuItemId: loginMenuId }, { menuItemId: dashMenuId }],
+          active: login._id,
+          alternatives: [login._id, dash._id],
         },
       ],
       calendar: { name: appName, calendarId: v4(), events: [] },
