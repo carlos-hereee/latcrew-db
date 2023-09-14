@@ -15,13 +15,13 @@ const dashboardPayload = (menuItemId) => {
 const menuItemPayload = (menuItemId, name, link) => {
   return { menuItemId, name, link, label: name, icon: name };
 };
-const appPayload = (appId, languageId, appName, logoId) => {
+const appPayload = ({ appId, languageId, appName, ownerId }) => {
   const menuItemId = v4();
   return {
-    appId: appId ? appId : v4(),
+    appId,
     languageId,
     appName,
-    logoId,
+    ownerId,
     themeList: ["light-mode", "dark-mode"],
     menu: [
       {

@@ -16,8 +16,8 @@ const appWare = [getApp, requireApp];
 router.get("/latest", requireUser, latest);
 router.get("/files", getFiles);
 // build app data
-router.post("/file-upload", uploadFile);
-router.post("/build-app", saveAsset, buildApp);
+router.post("/upload-file", saveAsset, uploadFile);
+router.post("/build-app", buildApp);
 router.post("/update-app", appWare, updateApp);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);

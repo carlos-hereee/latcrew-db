@@ -9,6 +9,8 @@ const appSchema = new Schema(
     appName: { type: String },
     themeList: [{ type: String }],
     logoId: { type: String },
+    ownerId: { type: String },
+    adminIds: [{ userId: { type: String } }],
     newsletter: {
       title: { type: String, default: "Join the newsletter" },
       subtitle: { type: String, default: "Suscribe to get the latest content by email" },

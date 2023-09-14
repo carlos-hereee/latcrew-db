@@ -1,17 +1,24 @@
 const { v4 } = require("uuid");
 const saveApp = require("../../db/models/app/saveApp");
-const { baseUrl } = require("../../../config.env");
 const { appPayload } = require("./helpers/appPayload");
+const useGenericErrors = require("../../utils/auth/useGenericErrors");
 
 module.exports = async (req, res) => {
-  // key variables
-  const languageId = req.user.languageId;
-  const appId = req.user.appId;
-  const logoId = req.hero ? req.hero.heroId : v4();
-  const appName = req.body.appName;
-
-  const payload = appPayload(appId, languageId, appName, logoId);
-  console.log("payload", payload);
-  // const app = await saveApp(payload);
-  // res.status(202).json(app).end();
+  try {
+    // key variables
+    const languageId = req.user.languageId;
+    const ownwerId = req.user.userId;
+    const appName = req.body.appName;
+    const appId = v4();
+    // save app
+    const payload = appPayload({ appId, ownwerId, languageId, appName });
+    await saveApp(payload);
+    // add user permissions
+    req.user.ownedApps = [...req.user.ownedApps, appId];
+    req.user.permissions = [...req.user.permissions, { appId, role: "admin" }];
+    req.user.save();
+    res.status(202).json(appId).end();
+  } catch (error) {
+    useGenericErrors(res, error);
+  }
 };
