@@ -13,9 +13,14 @@ module.exports = async (req, res) => {
     // save app
     const payload = appPayload({ appId, ownwerId, languageId, appName });
     await saveApp(payload);
+    // add to ownedApps
+    req.user.ownedApps = req.user.ownedApps
+      ? [...req.user.ownedApps, { appId }]
+      : [{ appId }];
     // add user permissions
-    req.user.ownedApps = [...req.user.ownedApps, appId];
-    req.user.permissions = [...req.user.permissions, { appId, role: "admin" }];
+    req.user.permissions = req.user.permissions
+      ? [...req.user.permissions, { appId, role: "admin" }]
+      : [{ appId, role: "admin" }];
     req.user.save();
     res.status(202).json(appId).end();
   } catch (error) {

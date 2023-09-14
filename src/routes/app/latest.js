@@ -3,7 +3,7 @@ const getApp = require("../../db/models/app/getApp");
 const getPages = require("../../db/models/page/getPages");
 
 module.exports = async (req, res) => {
-  const appId = req.user.appId;
+  const appId = req.params.appId;
   const app = await getApp({ appId });
   if (!app) return res.status(404).json(msg.appNotFound).end();
   const pages = await getPages({ appId });

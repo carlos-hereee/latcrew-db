@@ -13,7 +13,7 @@ const uploadFile = require("./uploadFile");
 const appWare = [getApp, requireApp];
 
 // load app data
-router.get("/latest", requireUser, latest);
+router.get("/latest/:appId", requireUser, latest);
 router.get("/files", getFiles);
 // build app data
 router.post("/upload-file", saveAsset, uploadFile);
