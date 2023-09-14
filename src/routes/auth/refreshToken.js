@@ -5,6 +5,7 @@ const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {
   try {
+    console.log("req.user", req.user);
     // require user
     if (!req.user) return res.status(404).json("User does not exists").end();
     // access granted: generate new sessionId

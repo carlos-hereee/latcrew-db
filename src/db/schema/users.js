@@ -8,8 +8,9 @@ const userSchema = new Schema(
     username: { type: String, require: true, unique: true },
     email: { type: String, set: toLower },
     nickname: { type: String },
-    heroId: { type: String },
-    languageId: { type: String, default: "english-en" },
+    languageId: { type: String },
+    // heroId: { type: Schema.Types.ObjectId, ref: "Hero" },
+    heroId: { type: String, ref: "Hero" },
     permissions: [{ appId: { type: String }, role: { type: String } }],
     auth: {
       salt: { type: String, select: false },
@@ -17,9 +18,9 @@ const userSchema = new Schema(
       password: { type: String, required: true, select: false },
       passwordHistory: [{ type: String, select: false }],
     },
-    ownedApps: [{ appId: { type: String } }],
+    ownedApps: [{ appId: { type: String, ref: "App" } }],
   },
-  { timestamps: true }
+  { timestamps: true, _id: false }
 );
 const Users = mongoose.model("Users", userSchema);
 module.exports = { Users, userSchema };

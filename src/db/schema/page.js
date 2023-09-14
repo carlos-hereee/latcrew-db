@@ -27,7 +27,7 @@ const pageSchema = new Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true, _id: false }
 );
 const Page = mongoose.model("Page", pageSchema);
 module.exports = Page;

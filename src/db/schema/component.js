@@ -37,7 +37,7 @@ const componentSchema = new Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true, _id: false }
 );
 const Component = mongoose.model("Component", componentSchema);
 module.exports = Component;

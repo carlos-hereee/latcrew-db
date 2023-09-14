@@ -13,7 +13,7 @@ const calendarSchema = new Schema(
     theme: { type: String },
     events: [{ eventId: { type: String } }],
   },
-  { timestamps: true }
+  { timestamps: true, _id: false }
 );
 const Calendar = mongoose.model("Calendar", calendarSchema);
 module.exports = Calendar;

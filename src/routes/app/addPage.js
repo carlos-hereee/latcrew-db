@@ -1,5 +1,5 @@
 const { v4 } = require("uuid");
-const { pagePayload, menuItemPayload } = require("./helpers/appPayload");
+const { pagePayload, menuItemPayload } = require("../../middleware/app/pagePayload");
 const savePage = require("../../db/models/page/savePage");
 const updateApp = require("../../db/models/app/updateApp");
 const updateUser = require("../../db/models/users/updateUser");

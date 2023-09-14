@@ -1,4 +1,4 @@
-const { Users } = require("../../schema/user");
+const { Users } = require("../../schema/users");
 
 module.exports = async ({ username, sessionId }) => {
   const selectOption = "+auth.salt +auth.password +auth.sessionId +auth.passwordHistory";

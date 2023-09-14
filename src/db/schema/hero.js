@@ -6,8 +6,6 @@ const heroSchema = new Schema(
   {
     // key variables
     heroId: { type: String, require: true, unique: true },
-    userId: { type: String },
-    appId: { type: String },
     languageId: { type: String },
     // asset
     small: { type: String },
@@ -31,7 +29,7 @@ const heroSchema = new Schema(
       assetUrl: { type: String },
     },
   },
-  { timestamps: true }
+  { timestamps: true, _id: false }
 );
 const Hero = mongoose.model("Hero", heroSchema);
 module.exports = Hero;
