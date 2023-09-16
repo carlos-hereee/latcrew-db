@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
     await saveUser({ userId, email, username, auth });
     // create session cookie
     const { accessToken } = storeCookies(res, username, sessionId);
-    res.status(201).json(accessToken).end();
+    res.status(201).json({ accessToken, user: { email, userId, username } }).end();
   } catch (error) {
     useGenericErrors(res, error, "error registering user");
   }
