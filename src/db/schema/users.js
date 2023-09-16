@@ -10,14 +10,16 @@ const userSchema = new Schema(
     nickname: { type: String },
     languageId: { type: String },
     heroId: { type: Schema.Types.ObjectId, ref: "Hero" },
-    permissions: [{ appId: { type: String }, role: { type: String } }],
+    permissions: [
+      { appId: { type: Schema.Types.ObjectId, ref: "App" }, role: { type: String } },
+    ],
     auth: {
       salt: { type: String, select: false },
       sessionId: { type: String, select: false },
       password: { type: String, required: true, select: false },
       passwordHistory: [{ type: String, select: false }],
     },
-    ownedApps: [{ type: String }],
+    ownedApps: [{ type: Schema.Types.ObjectId, ref: "App" }],
   },
   { timestamps: true }
 );

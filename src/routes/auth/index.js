@@ -23,7 +23,7 @@ router.get("/user/:username", userWare, getWithUsername);
 // post
 router.post("/register", validateUser, authenticateUser, register);
 router.post("/login", validateWare, login);
-router.post("/refresh-token", refreshToken);
+router.post("/refresh-token", requireUser, refreshToken);
 router.post("/change-password", validateWare, changePasswordWare);
 // TODO: ADD ADDITIONAL VERFICATION MEDTHODS
 router.post("/forgot-password", userWare, changePasswordWare);
