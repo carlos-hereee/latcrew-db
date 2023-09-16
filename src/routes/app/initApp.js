@@ -1,6 +1,7 @@
 const { v4 } = require("uuid");
 const useGenericErrors = require("../../utils/auth/useGenericErrors");
 const saveHero = require("../../db/models/hero/saveHero");
+const saveApp = require("../../db/models/app/saveApp");
 
 // menu items values saved in Hero db
 const menuItem = ({ heroId, name, link, icon }) => {

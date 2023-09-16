@@ -17,6 +17,7 @@ module.exports = (user) => {
     permissions,
     userId: user.userId,
     username: user.username,
+    ownedApps: user.ownedApps,
     role: user.role,
     email: user.email ? user.email : "",
     nickname: user.nickname ? user.nickname : "",
