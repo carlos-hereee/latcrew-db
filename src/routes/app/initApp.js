@@ -14,21 +14,21 @@ module.exports = async (req, res, next) => {
     const loginId = v4();
     const dashId = v4();
     const appName = req.body.appName;
-    const userId = req.user.userId;
-    const languageId = req.user.languageId;
+    const languageId = req.user.languageId || "";
     const loginData = { name: "login", link: "login", icon: "user", heroId: loginId };
     const dashData = { name: "dashboard", link: "dashboard", icon: "user" };
     const loginPayload = menuItem({ ...loginData, menuItemId: loginId });
     const dashPayload = menuItem({ ...dashData, menuItemId: dashId, heroId: dashId });
-    // save menu item assets values
+    // save app menu item assets values
     const login = await saveHero(loginPayload);
     const dash = await saveHero(dashPayload);
-    // set init app
-    req.app = {
+    // init app
+    const app = await saveApp({
       appId,
       languageId,
       appName,
-      ownerId: userId,
+      ownerId: req.user._id,
+      adminIds: [req.user._id],
       themeList: ["light-mode", "dark-mode"],
       menu: [
         {
@@ -39,9 +39,14 @@ module.exports = async (req, res, next) => {
         },
       ],
       calendar: { name: appName, calendarId: v4(), events: [] },
-    };
+    });
+    // update user   ownedApps
+    req.user.ownedApps = [...req.user.ownedApps, app._id];
+    // add user permissions
+    req.user.permissions = [...req.user.permissions, { appId: app._id, role: "admin" }];
+    req.user.save();
     next();
   } catch (error) {
-    useGenericErrors(res, error, "app payload error: ");
+    useGenericErrors(res, error, "app build error: ");
   }
 };

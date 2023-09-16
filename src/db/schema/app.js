@@ -8,8 +8,8 @@ const appSchema = new Schema(
     appName: { type: String },
     themeList: [{ type: String }],
     logoId: { type: Schema.Types.ObjectId, ref: "Hero" },
-    ownerId: { type: String },
-    adminIds: [{ type: String }],
+    ownerId: { type: Schema.Types.ObjectId, ref: "Users" },
+    adminIds: [{ type: Schema.Types.ObjectId, ref: "Users" }],
     newsletter: {
       title: { type: String, default: "Join the newsletter" },
       subtitle: { type: String, default: "Suscribe to get the latest content by email" },

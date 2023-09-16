@@ -3,14 +3,13 @@ const { getApp, requireApp } = require("../../middleware/app");
 const saveAsset = require("../../middleware/app/saveAsset");
 const { requireUser } = require("../../middleware/auth");
 const addPage = require("./addPage");
-const buildApp = require("./buildApp");
 const deleteApp = require("./deleteApp");
 const getFiles = require("./getFiles");
-// const getOwnedApps = require("../../middleware/app/getOwnedApps");
-const initAppPayload = require("./initAppPayload");
+const initApp = require("./initApp");
 const latest = require("./latest");
 const updateApp = require("./updateApp");
 const uploadFile = require("./uploadFile");
+const getOwnedApps = require("./getOwnedApps");
 // one liner
 const appWare = [getApp, requireApp];
 
@@ -20,7 +19,7 @@ router.get("/latest/:appId", requireUser, latest);
 router.get("/files", getFiles);
 // build app data
 router.post("/upload-file", saveAsset, uploadFile);
-router.post("/build-app", initAppPayload, requireApp, buildApp);
+router.post("/build-app", initApp, getOwnedApps);
 router.post("/update-app", appWare, updateApp);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);

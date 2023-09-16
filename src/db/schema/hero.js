@@ -6,9 +6,9 @@ const heroSchema = new Schema(
   {
     // key variables
     heroId: { type: String, require: true, unique: true },
-    languageId: { type: String },
+    // languageId: { type: String },
     menuItemId: { type: String },
-    appId: { type: String },
+    // appId: { type: String },
     // asset
     small: { type: String },
     url: { type: String },
