@@ -1,3 +1,4 @@
+const { isDev, accessTokenName, refreshTokenName } = require("../../../config.env");
 const getUserAuth = require("../../db/models/users/getUserAuth");
 const useGenericErrors = require("../../utils/auth/useGenericErrors");
 const verifyJWT = require("../../utils/jwt/verifyJWT");
@@ -5,11 +6,14 @@ const verifyJWT = require("../../utils/jwt/verifyJWT");
 module.exports = async (req, res, next) => {
   try {
     // key variables
-    const { accessToken, refreshToken } = req.cookies;
-    const token = accessToken ? accessToken : refreshToken;
+    // const { accessTokenName, refreshToken } = req.cookies;
+    const accessToken = req.cookies[accessTokenName];
+    const refreshToken = req.cookies[refreshTokenName];
+    const token = accessTokenName ? accessTokenName : refreshToken;
+    if (!token) isDev && console.log("no token", accessToken, refreshToken) && next();
     // validate token
     const { username, sessionId, error } = verifyJWT(token);
-    if (error.error) console.log("error  verifying JWT", error);
+    if (error.error) isDev && console.log("error  verifying JWT", error);
     if (username) req.user = await getUserAuth({ username });
     else if (sessionId) req.user = await getUserAuth({ sessionId });
     next();

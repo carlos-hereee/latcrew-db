@@ -14,5 +14,6 @@
   "serverIsDown": "Server is down, try again later.",
   "adminRequired": "Permission not met/granted",
   "calendarNotFound": "Not found: Calendar for this app has not been created",
-  "passwordAlreadyInHistory": "Password used in the passed."
+  "passwordAlreadyInHistory": "Password used in the passed.",
+  "tokenNotFound": "No cookies sent"
 }
