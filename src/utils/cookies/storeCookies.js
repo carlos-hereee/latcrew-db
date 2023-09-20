@@ -7,12 +7,10 @@ module.exports = (res, username, sessionId) => {
   res.cookie(accessTokenName, accessToken, {
     maxAge: 300000,
     httpOnly: true,
-    sameSite: "Secure",
   });
   res.cookie(refreshTokenName, refreshToken, {
     maxAge: 3.154e10,
     httpOnly: true,
-    sameSite: "Secure",
   });
   return { accessToken };
 };

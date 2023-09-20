@@ -6,7 +6,7 @@ const storeCookies = require("../../utils/cookies/storeCookies");
 
 module.exports = async (req, res) => {
   try {
-    console.log("req.user", req.user);
+    // console.log("req.user", req.user);
     // access granted: generate new sessionId
     const sessionId = makeSession(req.user.userId);
     req.user.auth.sessionId = sessionId;
