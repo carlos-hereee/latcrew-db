@@ -5,6 +5,7 @@ const verifyJWT = require("../../utils/jwt/verifyJWT");
 
 module.exports = async (req, res, next) => {
   try {
+    // console.log("request found");
     // key variables
     const accessToken = req.cookies[accessTokenName];
     const refreshToken = req.cookies[refreshTokenName];

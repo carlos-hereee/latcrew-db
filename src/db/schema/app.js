@@ -10,6 +10,13 @@ const appSchema = new Schema(
     logo: { type: Schema.Types.ObjectId, ref: "Hero" },
     ownerId: { type: Schema.Types.ObjectId, ref: "Users" },
     adminIds: [{ type: Schema.Types.ObjectId, ref: "Users" }],
+    landing: {
+      title: { type: String },
+      tagline: { type: String },
+      body: { type: String },
+      cta: { type: Schema.Types.ObjectId, ref: "Hero" },
+      sections: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
+    },
     newsletter: {
       title: { type: String, default: "Join the newsletter" },
       subtitle: { type: String, default: "Suscribe to get the latest content by email" },

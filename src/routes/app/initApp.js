@@ -8,13 +8,21 @@ const menuItem = ({ heroId, name, link, icon }) => {
   return { heroId, name, link, label: name, icon, type: "menu-item" };
 };
 module.exports = async (req, res, next) => {
+  // console.log("req.body", req.body);
   try {
+    const landingPage = req.body.landingPage;
     // key variables
     const appId = v4();
     const menuId = v4();
     const loginId = v4();
     const dashId = v4();
-    const appName = req.body.appName;
+    const appName = req.body.appName.appName;
+    // remove false values
+    const landing = {
+      ...landingPage,
+      cta: !landingPage.cta ? null : landingPage.cta,
+      sections: !landingPage.sections ? [] : landingPage.sections,
+    };
     const languageId = req.user.languageId || "";
     const loginData = { name: "login", link: "login", icon: "user", heroId: loginId };
     const dashData = { name: "dashboard", link: "dashboard", icon: "user" };
@@ -31,6 +39,7 @@ module.exports = async (req, res, next) => {
       ownerId: req.user._id,
       adminIds: [req.user._id],
       themeList: ["light-mode", "dark-mode"],
+      landing,
       menu: [
         {
           menuId,
