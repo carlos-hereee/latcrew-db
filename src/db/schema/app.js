@@ -5,7 +5,7 @@ const appSchema = new Schema(
   {
     appId: { type: String, require: true },
     languageId: { type: String },
-    appName: { type: String },
+    appName: { type: String, unique: true },
     themeList: [{ type: String }],
     logo: { type: Schema.Types.ObjectId, ref: "Hero" },
     ownerId: { type: Schema.Types.ObjectId, ref: "Users" },

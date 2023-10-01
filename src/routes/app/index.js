@@ -10,10 +10,12 @@ const latest = require("./latest");
 const updateApp = require("./updateApp");
 const uploadFile = require("./uploadFile");
 const getOwnedApps = require("./getOwnedApps");
+const getAppWithName = require("./getAppWithName");
 // one liner
 const appWare = [getApp, requireApp];
 
 // load app data
+router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
 // router.get("/ownedApps", requireUser, getOwnedApps, );
 router.get("/files", getFiles);
