@@ -15,6 +15,8 @@ const pageSchema = new Schema(
     details: { type: String },
     name: { type: String },
     theme: { type: String },
+    hasCta: { type: Boolean },
+    hasSections: { type: Boolean },
     sections: [{ componentId: { type: String } }],
     cta: [
       {

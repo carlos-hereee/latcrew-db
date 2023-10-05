@@ -22,7 +22,7 @@ router.get("/files", getFiles);
 // build app data
 router.post("/upload-file", saveAsset, uploadFile);
 router.post("/build-app", initApp, getOwnedApps);
-router.post("/update-app", appWare, updateApp);
+router.post("/update-app", updateApp);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app

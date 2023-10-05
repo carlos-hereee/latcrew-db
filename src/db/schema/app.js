@@ -14,6 +14,8 @@ const appSchema = new Schema(
       title: { type: String },
       tagline: { type: String },
       body: { type: String },
+      hasCta: { type: Boolean },
+      hasSections: { type: Boolean },
       cta: { type: Schema.Types.ObjectId, ref: "Hero" },
       sections: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
     },
