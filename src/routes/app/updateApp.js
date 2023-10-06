@@ -1,22 +1,22 @@
 module.exports = async (req, res) => {
-  const { appName, landing, id, appId } = req.body;
-  // console.log("appName, landing,id, appId", appName, landing, id, appId);
-  console.log("landing", landing);
-
-  const hasCta = landing.filter((l) => {
-    if (l.group === "hasCta") return l;
-  });
-  const hasSections = landing.filter((l) => {
-    if (l.group === "hasSections") return l;
-  });
-  console.log("hasCta", hasCta);
-  console.log("hasSections", hasSections);
-  const payload = {
-    appName,
-    appId,
-    _id: id,
-    landing: {
-      ...landing,
-    },
+  const { appName, landingPage } = req.body;
+  const formatFormData = (data) => {
+    let payload = {};
+    data.forEach((e) => {
+      payload[e.sharedKey] = { ...payload[e.sharedKey], [e.name]: e.value };
+    });
+    return Object.keys(payload).map((key) => payload[key]);
   };
+  const appNameValue = appName.value;
+  const landingPageValue = {
+    title: landingPage.title.value,
+    tagline: landingPage.tagline.value,
+    body: landingPage.body.value,
+    hasCta: landingPage.hasCta.value,
+    hasSections: landingPage.hasSections.value,
+    cta: landingPage.hasCta.value && formatFormData(landingPage.hasCta.group),
+    sections:
+      landingPage.hasSections.value && formatFormData(landingPage.hasSections.group),
+  };
+  console.log("landingPageValue", landingPageValue);
 };
