@@ -1,4 +1,5 @@
 module.exports = (data) => {
+  if (!data) return;
   let payload = {};
   const keys = Object.keys(data);
   keys.forEach((key) => {
