@@ -1,5 +1,7 @@
 module.exports = async (req, res) => {
-  const { appName, landingPage } = req.body;
+  // key variables
+  const { appName, landingPage, appId } = req.body;
+  // format data
   const formatFormData = (data) => {
     let payload = {};
     data.forEach((e) => {
@@ -18,5 +20,8 @@ module.exports = async (req, res) => {
     sections:
       landingPage.hasSections.value && formatFormData(landingPage.hasSections.group),
   };
-  console.log("landingPageValue", landingPageValue);
+  // console.log("landingPageValue", landingPageValue);
+  // console.log("appId", appId);
+  // TODO: add cta and sections to hero db schema
+  // update app
 };
