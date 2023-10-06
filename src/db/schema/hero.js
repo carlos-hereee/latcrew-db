@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const toLower = require("../../utils/lowerCase");
+const toLower = require("../../utils/app/lowerCase");
 
 const heroSchema = new Schema(
   {
