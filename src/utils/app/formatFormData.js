@@ -6,7 +6,7 @@ module.exports = (data) => {
     const current = data[key];
     const name = data[key].name;
     // if its part of a group
-    if (current.group.length > 0) {
+    if (current.group?.length > 0) {
       // format section
       const sections = formatSectionData(current.group);
       payload[name] = { ...payload[name], group: sections, [name]: current.value };

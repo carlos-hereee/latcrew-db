@@ -14,8 +14,8 @@ const appSchema = new Schema(
       title: { type: String },
       tagline: { type: String },
       body: { type: String },
-      hasCta: { type: Boolean },
-      hasSections: { type: Boolean },
+      hasCta: { type: Boolean, default: false },
+      hasSections: { type: Boolean, default: false },
       cta: { type: Schema.Types.ObjectId, ref: "Hero" },
       sections: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
     },
@@ -27,8 +27,9 @@ const appSchema = new Schema(
     },
     media: {
       title: { type: String, default: "Dont miss a thing! Follow us on our socials" },
-      heroId: { type: String },
-      socials: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
+      subtitle: { type: String },
+      details: { type: String },
+      sections: [{ type: Schema.Types.ObjectId, ref: "Hero" }],
     },
     menu: [
       {
