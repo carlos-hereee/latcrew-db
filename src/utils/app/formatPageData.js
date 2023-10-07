@@ -1,23 +1,23 @@
-module.exports = (formData) => {
-  // key variables
-  const callToAction = [];
-  const subSections = [];
+module.exports = (formData, desiredData) => {
   const pageData = {};
   // keep track of hero data
   const refs = [];
-
-  Object.keys(formData).forEach((key) => {
-    // check if it contains Call to action
-    if (formData[key].hasCta) refs.push("cta");
-    // check if it contains sub sections
-    if (formData[key].hasSections) refs.push("sections");
-    // if CTAs are included
-    if (refs.includes(key) && key === "cta") callToAction.push(formData[key]);
-    // if sub sections  are included
-    else if (refs.includes(key) && key === "sections") callToAction.push(formData[key]);
-    // otherwise include it in page data
-    else pageData[key] = formData[key];
-  });
-
-  return { callToAction, subSections, pageData };
+  // DRY make formdata into array
+  const form = Object.keys(formData);
+  // filter with desiredData
+  if (!desiredData) {
+    desiredData = [
+      { filter: "hasCta", ifTrue: "cta" },
+      { filter: "hasSections", ifTrue: "sections" },
+    ];
+  }
+  for (let i = 0; i < form.length; i++) {
+    const key = form[i];
+    // check if key it contains desired data
+    const desiredIdx = desiredData.findIndex((data) => data.filter === key);
+    if (desiredIdx >= 0) {
+      refs.push(formData[desiredData[desiredIdx].ifTrue]);
+    } else pageData[key] = formData[key];
+  }
+  return { pageData, refs };
 };
