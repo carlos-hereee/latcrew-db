@@ -17,7 +17,14 @@ module.exports = (formData, desiredData) => {
     const desiredIdx = desiredData.findIndex((data) => data.filter === key);
     if (desiredIdx >= 0) {
       refs.push(formData[desiredData[desiredIdx].ifTrue]);
-    } else pageData[key] = formData[key];
+      pageData[key] = formData[key];
+    } else {
+      // check if key is refs
+      if (!refs.some((ref) => ref.groupName === key)) pageData[key] = formData[key];
+    }
   }
+  console.log("pageData", pageData);
+  // console.log("pageData, ", pageData);
+  console.log("refs", refs);
   return { pageData, refs };
 };
