@@ -12,6 +12,7 @@ const uploadFile = require("./uploadFile");
 const getOwnedApps = require("./getOwnedApps");
 const getAppWithName = require("./getAppWithName");
 const updateAppName = require("./updateAppName");
+const updateLandingPage = require("./updateLandingPage");
 // one liner
 const appWare = [getApp, requireApp];
 
@@ -25,6 +26,7 @@ router.post("/upload-file", saveAsset, uploadFile);
 router.post("/build-app", initApp, getOwnedApps);
 router.post("/update-app", updateApp);
 router.post("/update-app-name/:appId", updateAppName);
+router.post("/update-landing-page/:appId", updateLandingPage);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app
