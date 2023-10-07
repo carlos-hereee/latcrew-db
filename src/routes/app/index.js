@@ -13,6 +13,7 @@ const getOwnedApps = require("./getOwnedApps");
 const getAppWithName = require("./getAppWithName");
 const updateAppName = require("./updateAppName");
 const updateLandingPage = require("./updateLandingPage");
+const requireAdminPermission = require("../../middleware/app/requireAdminPermission");
 // one liner
 const appWare = [getApp, requireApp];
 
@@ -24,9 +25,9 @@ router.get("/files", getFiles);
 // build app data
 router.post("/upload-file", saveAsset, uploadFile);
 router.post("/build-app", initApp, getOwnedApps);
-router.post("/update-app", updateApp);
-router.post("/update-app-name/:appId", updateAppName);
-router.post("/update-landing-page/:appId", updateLandingPage);
+router.post("/update-app", requireAdminPermission, updateApp);
+router.post("/update-app-name/:appId", requireAdminPermission, updateAppName);
+router.post("/update-landing-page/:appId", requireAdminPermission, updateLandingPage);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app

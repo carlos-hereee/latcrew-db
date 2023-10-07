@@ -1,7 +1,7 @@
 const getApp = require("../../db/models/app/getApp");
 
 module.exports = async (req, res, next) => {
-  const appId = req.user.ownedApps[0];
-  req.app = await getApp({ appId });
+  const appIds = req.user.ownedApps;
+  req.app = await getApp({ appIds });
   next();
 };
