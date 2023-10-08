@@ -23,8 +23,5 @@ module.exports = (formData, desiredData) => {
       if (!refs.some((ref) => ref.groupName === key)) pageData[key] = formData[key];
     }
   }
-  console.log("pageData", pageData);
-  // console.log("pageData, ", pageData);
-  console.log("refs", refs);
   return { pageData, refs };
 };

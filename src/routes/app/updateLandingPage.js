@@ -1,31 +1,29 @@
 const { v4 } = require("uuid");
-const saveHero = require("../../db/models/hero/saveHero");
 const updateHero = require("../../db/models/hero/updateHero");
 const formatFormData = require("../../utils/app/formatFormData");
 const formatPageData = require("../../utils/app/formatPageData");
+const useGenericErrors = require("../../utils/auth/useGenericErrors");
 
 module.exports = async (req, res) => {
-  const formData = formatFormData(req.body);
-  const { pageData, refs } = formatPageData(formData);
-  // check if it contains Ctas
-  // console.log("pageData", pageData);
-  // if (refs.length > 0) {
-  //   // save and store ref ids
-  //   refs.forEach(async (ref) => {
-  //     const heroId = ref?.heroId;
-  //     // check if its already in db avoid duplicate data
-  //     if (heroId) await updateHero({ heroId }, ref);
-  //     else {
-  //       ref.heroId = v4();
-  //       const hero = await saveHero(ref);
-  //       // console.log("pageData", pageData[ref.groupName]);
-  //       // pageData[ref.groupName].push(hero._id);
-  //     }
-  //   });
-  // }
-  // console.log("req.app", req.app);
-  // update app
-  // req.app.landing = pageData;
-  // await req.app.save();
-  return res.status(200).json(req.app).end();
+  try {
+    const formData = formatFormData(req.body);
+    let { pageData, refs } = formatPageData(formData);
+    for (let i = 0; i < refs.length; i++) {
+      const current = refs[i];
+      const heroId = current?.heroId || v4();
+      const hero = await updateHero({ heroId }, current);
+      // console.log("hero", hero);
+      if (hero) {
+        const groupName = pageData[current.groupName] || current.groupName;
+        // save and store ref ids
+        if (!pageData[groupName]) pageData[groupName] = hero;
+        else pageData[groupName] = [...pageData[groupName], hero];
+      }
+    }
+    req.app.landing = pageData;
+    await req.app.save();
+    res.status(200).json(req.app).end();
+  } catch (error) {
+    useGenericErrors(res, error, "error occured updating lading page");
+  }
 };
