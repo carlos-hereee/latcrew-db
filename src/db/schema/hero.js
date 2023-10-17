@@ -20,13 +20,15 @@ const heroSchema = new Schema(
     icon: { type: String, set: toLower },
     name: { type: String },
     label: { type: String },
-    theme: { type: String },
-    type: { type: String },
     ping: { type: Number },
     // multer options
-    filename: { type: String },
-    minetype: { type: String },
+    fieldname: { type: String },
+    originalname: { type: String },
     encoding: { type: String },
+    mimetype: { type: String },
+    destination: { type: String },
+    filename: { type: String },
+    path: { type: String },
     size: { type: Number },
     // 3rd party asset
     credit: {

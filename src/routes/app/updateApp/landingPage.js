@@ -1,8 +1,8 @@
 const { v4 } = require("uuid");
-const updateHero = require("../../db/models/hero/updateHero");
-const formatFormData = require("../../utils/app/formatFormData");
-const formatPageData = require("../../utils/app/formatPageData");
-const useGenericErrors = require("../../utils/auth/useGenericErrors");
+const updateHero = require("../../../db/models/hero/updateHero");
+const formatFormData = require("../../../utils/app/formatFormData");
+const formatPageData = require("../../../utils/app/formatPageData");
+const useGenericErrors = require("../../../utils/auth/useGenericErrors");
 
 module.exports = async (req, res) => {
   try {

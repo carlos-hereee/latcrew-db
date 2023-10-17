@@ -7,15 +7,18 @@ const deleteApp = require("./deleteApp");
 // const getFiles = require("./getFiles");
 const initApp = require("./initApp");
 const latest = require("./latest");
-const updateApp = require("./updateApp");
+const updateApp = require("./updateApp/app");
 const uploadFile = require("./uploadFile");
 const getOwnedApps = require("./getOwnedApps");
 const getAppWithName = require("./getAppWithName");
-const updateAppName = require("./updateAppName");
-const updateLandingPage = require("./updateLandingPage");
-const requireAdminPermission = require("../../middleware/app/requireAdminPermission");
+const updateAppName = require("./updateApp/appName");
+const updateLandingPage = require("./updateApp/landingPage");
+const requireAdmin = require("../../middleware/app/requireAdminPermission");
+const uploadSingle = require("../../utils/multer/uploadSingle");
+const updateAppLogo = require("./updateApp/appLogo");
 // one liner
 const appWare = [getApp, requireApp];
+const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
 
 // load app data
 router.get("/:appName", requireUser, getAppWithName);
@@ -25,9 +28,10 @@ router.get("/latest/:appId", requireUser, latest);
 // build app data
 router.post("/upload-file", saveAsset, uploadFile);
 router.post("/build-app", initApp, getOwnedApps);
-router.post("/update-app", requireAdminPermission, updateApp);
-router.post("/update-app-name/:appId", requireAdminPermission, updateAppName);
-router.post("/update-landing-page/:appId", requireAdminPermission, updateLandingPage);
+// update app
+router.post("/update-app", requireAdmin, updateApp);
+router.post("/update-app-name/:appId", updateLogoWare, updateAppLogo);
+router.post("/update-landing-page/:appId", requireAdmin, updateLandingPage);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app
