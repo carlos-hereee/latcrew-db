@@ -1,11 +1,15 @@
-const { Users } = require("../../schema/user");
+const { Users } = require("../../schema/users");
 
 module.exports = async ({ username, email, userId, all, appId }) => {
   if (username) {
     return await Users.findOne({ username });
   }
   if (userId) {
-    return await Users.findOne({ userId });
+    // send data required by client
+    return await Users.findOne({ userId }).populate({
+      path: "ownedApps",
+      select: "logo appName",
+    });
   }
   if (email) {
     return await Users.findOne({ email });
