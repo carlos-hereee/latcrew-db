@@ -8,6 +8,7 @@ const userSchema = new Schema(
     username: { type: String, require: true, unique: true },
     email: { type: String, set: toLower },
     nickname: { type: String },
+    phone: { type: String },
     languageId: { type: String },
     heroId: { type: Schema.Types.ObjectId, ref: "Hero" },
     permissions: [
