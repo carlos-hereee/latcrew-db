@@ -1,9 +1,7 @@
 const msg = require("../../db/data/error.message.json");
 
 module.exports = (req, res) => {
-  const { appId } = req.body;
-  console.log("appId", req.body);
-  if (req.user.appId === appId) {
-    console.log("match ", appId);
+  if (req.user.ownedApps.contains(req.app._id)) {
+    console.log("match ", req.app);
   } else res.status(400).json(msg.unauthorizedUser);
 };

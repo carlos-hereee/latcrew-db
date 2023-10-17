@@ -35,6 +35,6 @@ router.post("/update-landing-page/:appId", requireAdmin, updateLandingPage);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app
-router.delete("/delete-app", deleteApp);
+router.delete("/delete-app/:appId", requireAdmin, deleteApp);
 
 module.exports = router;

@@ -6,7 +6,6 @@ module.exports = async ({ appId, appName, appIds, ownerId }) => {
     return await App.find(appIds).populate(includeData).exec();
   }
   if (ownerId) {
-    console.log("ownerId", ownerId);
     return await App.find({ ownerId }).populate(includeData).exec();
   }
   if (appId) {
