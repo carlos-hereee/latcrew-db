@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     const { username } = req.params;
     const user = await getUserAuth({ username });
     // // TODO: ADD ADDITIONAL VERFICATION METHODS
-    res.status(200).json(req.user).end();
+    res.status(200).json(user).end();
   } catch (error) {
     useGenericErrors(res, error);
   }

@@ -17,7 +17,7 @@ const userSchema = new Schema(
     auth: {
       salt: { type: String, select: false },
       sessionId: { type: String, select: false },
-      password: { type: String, required: true, select: false },
+      password: { type: String, select: false },
       passwordHistory: [{ type: String, select: false }],
     },
     ownedApps: [{ type: Schema.Types.ObjectId, ref: "App" }],

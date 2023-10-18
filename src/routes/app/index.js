@@ -4,11 +4,9 @@ const saveAsset = require("../../middleware/app/saveAsset");
 const { requireUser } = require("../../middleware/auth");
 const addPage = require("./addPage");
 const deleteApp = require("./deleteApp");
-// const getFiles = require("./getFiles");
 const initApp = require("./initApp");
 const latest = require("./getApp/latest");
 const updateApp = require("./updateApp/app");
-// const uploadFile = require("./uploadFile");
 const getOwnedApps = require("./getApp/getOwnedApps");
 const getAppWithName = require("./getApp/getAppWithName");
 const updateAppName = require("../../middleware/app/matchName");
@@ -23,10 +21,7 @@ const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
 // load app data
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
-// router.get("/ownedApps", requireUser, getOwnedApps, );
-// router.get("/files", getFiles);
 // build app data
-// router.post("/upload-file", saveAsset, uploadFile);
 router.post("/build-app", initApp, getOwnedApps);
 // update app
 router.post("/update-app", requireAdmin, updateApp);
