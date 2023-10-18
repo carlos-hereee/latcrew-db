@@ -6,12 +6,12 @@ const addPage = require("./addPage");
 const deleteApp = require("./deleteApp");
 // const getFiles = require("./getFiles");
 const initApp = require("./initApp");
-const latest = require("./latest");
+const latest = require("./getApp/latest");
 const updateApp = require("./updateApp/app");
-const uploadFile = require("./uploadFile");
-const getOwnedApps = require("./getOwnedApps");
-const getAppWithName = require("./getAppWithName");
-const updateAppName = require("./updateApp/appName");
+// const uploadFile = require("./uploadFile");
+const getOwnedApps = require("./getApp/getOwnedApps");
+const getAppWithName = require("./getApp/getAppWithName");
+const updateAppName = require("../../middleware/app/matchName");
 const updateLandingPage = require("./updateApp/landingPage");
 const requireAdmin = require("../../middleware/app/requireAdminPermission");
 const uploadSingle = require("../../utils/multer/uploadSingle");
@@ -26,7 +26,7 @@ router.get("/latest/:appId", requireUser, latest);
 // router.get("/ownedApps", requireUser, getOwnedApps, );
 // router.get("/files", getFiles);
 // build app data
-router.post("/upload-file", saveAsset, uploadFile);
+// router.post("/upload-file", saveAsset, uploadFile);
 router.post("/build-app", initApp, getOwnedApps);
 // update app
 router.post("/update-app", requireAdmin, updateApp);

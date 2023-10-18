@@ -10,13 +10,9 @@ const menuItem = ({ heroId, name, link, icon }) => {
 module.exports = async (req, res, next) => {
   // console.log("req.body", req.body);
   try {
-    const landingPage = req.body.landingPage;
-    // key variables
-    const appId = v4();
-    const menuId = v4();
-    const loginId = v4();
-    const dashId = v4();
     const appName = req.body.appName.appName;
+    const landingPage = req.body.landingPage;
+    const ids = { appId: v4(), menuId: v4(), loginId: v4(), dashId: v4() };
     // remove false values
     const landing = {
       ...landingPage,
@@ -24,10 +20,14 @@ module.exports = async (req, res, next) => {
       sections: !landingPage.sections ? [] : landingPage.sections,
     };
     const languageId = req.user.languageId || "";
-    const loginData = { name: "login", link: "login", icon: "user", heroId: loginId };
+    const loginData = { name: "login", link: "login", icon: "user", heroId: ids.loginId };
     const dashData = { name: "dashboard", link: "dashboard", icon: "user" };
-    const loginPayload = menuItem({ ...loginData, menuItemId: loginId });
-    const dashPayload = menuItem({ ...dashData, menuItemId: dashId, heroId: dashId });
+    const loginPayload = menuItem({ ...loginData, menuItemId: ids.loginId });
+    const dashPayload = menuItem({
+      ...dashData,
+      menuItemId: ids.dashId,
+      heroId: ids.dashId,
+    });
     // save app menu item assets values
     const login = await saveHero(loginPayload);
     const dash = await saveHero(dashPayload);

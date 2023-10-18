@@ -1,6 +1,6 @@
-const msg = require("../../db/data/error.message.json");
-const getApp = require("../../db/models/app/getApp");
-const getPages = require("../../db/models/page/getPages");
+const msg = require("../../../db/data/error.message.json");
+const getApp = require("../../../db/models/app/getApp");
+const getPages = require("../../../db/models/page/getPages");
 
 module.exports = async (req, res) => {
   const appId = req.params.appId;
