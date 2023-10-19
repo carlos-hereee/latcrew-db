@@ -6,7 +6,7 @@ module.exports = multer.diskStorage({
   filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
   fileFilter: (req, file, cb) => {
     const safeFiles = ["png", "image/svg+xml", "jpg"];
-    //  refect file that are not safe pass 'false' or pass an error
+    //  reject file that are not safe to pass 'false' or pass an error
     !safeFiles.includes(file.minetype)
       ? cb(new Error("forbideen file type"))
       : cb(null, true);

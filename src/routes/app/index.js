@@ -16,11 +16,13 @@ const uploadSingle = require("../../utils/multer/uploadSingle");
 const updateAppLogo = require("./updateApp/appLogo");
 const initAppLogo = require("../../middleware/app/initAppLogo");
 const requireUniqueName = require("../../middleware/app/requireUniqueName");
+const getAllApps = require("./getApp/getAllApps");
 // one liner
 const appWare = [getApp, requireApp];
 const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
-const initAppWare = [requireUniqueName, requireUser, uploadSingle("logo")];
+const initAppWare = [requireUser, uploadSingle("logo"), requireUniqueName];
 // load app data
+router.get("/all-apps", getAllApps);
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
 // build app data
