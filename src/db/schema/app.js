@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const appSchema = new Schema(
   {
     appId: { type: String, require: true },
-    languageId: { type: String },
     appName: { type: String, unique: true },
-    themeList: [{ type: String }],
     logo: { type: Schema.Types.ObjectId, ref: "Hero" },
     ownerId: { type: Schema.Types.ObjectId, ref: "Users" },
     adminIds: [{ type: Schema.Types.ObjectId, ref: "Users" }],
+    languageId: { type: String },
+    themeList: [{ type: String }],
     landing: {
       title: { type: String },
       tagline: { type: String },

@@ -17,12 +17,17 @@ const updateAppLogo = require("./updateApp/appLogo");
 // one liner
 const appWare = [getApp, requireApp];
 const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
-
+const initAppWare = [requireUser, uploadSingle("logo")];
 // load app data
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
 // build app data
-router.post("/build-app", initApp, getOwnedApps);
+router.post(
+  "/init-app",
+  initAppWare,
+  initApp
+  // getOwnedApps
+);
 // update app
 router.post("/update-app", requireAdmin, updateApp);
 router.post("/update-app-name/:appId", updateLogoWare, updateAppLogo);

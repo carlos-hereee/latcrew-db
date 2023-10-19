@@ -1,21 +1,13 @@
 const { v4 } = require("uuid");
 const updateHero = require("../../../db/models/hero/updateHero");
-const { baseUrl } = require("../../../../config.env");
+const formatLogoData = require("../../../utils/app/formatLogoData");
 
 module.exports = async (req, res) => {
   // check if app logo has logo
   const appName = req.body.appName;
   const refId = req.app.logo;
   // logo payload
-  const logo = {
-    ...req.file,
-    heading: appName,
-    title: appName,
-    // TODO: compress image for faster loading
-    small: `${baseUrl}/${req.file.path}`,
-    url: `${baseUrl}/${req.file.path}`,
-    alt: "Industry brand",
-  };
+  const logo = formatLogoData(appName, req.file);
   //  updating previous logo
   if (refId) {
     const id = await updateHero({ refId }, logo);
