@@ -6,7 +6,7 @@ const createApp = require("../../db/models/app/createApp");
 // const menuItem = ({ heroId, name, link, icon }) => {
 //   return { heroId, name, link, label: name, icon, type: "menu-item" };
 // };
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   try {
     // key variables
     const appName = req.body.appName;
@@ -21,8 +21,8 @@ module.exports = async (req, res, next) => {
     // add user permissions
     req.user.permissions = [...req.user.permissions, { appId: app._id, role: "owner" }];
     req.user.save();
-    next();
 
+    res.status(200).json({ user: req.user, app }).end();
     // const landingPage = req.body.logo;
     //   // remove false values
     //   const landing = {

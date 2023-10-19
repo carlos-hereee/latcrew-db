@@ -8,32 +8,33 @@ const initApp = require("./initApp");
 const latest = require("./getApp/latest");
 const updateApp = require("./updateApp/app");
 const getAppWithName = require("./getApp/getAppWithName");
-const updateAppName = require("../../middleware/app/matchName");
+const updateAppName = require("../../middleware/app/updateAppName");
 const updateLandingPage = require("./updateApp/landingPage");
-const requireAdmin = require("../../middleware/app/requireAdmin");
+const validateAdmin = require("../../middleware/app/validateAdmin");
 const uploadSingle = require("../../utils/multer/uploadSingle");
 const updateAppLogo = require("./updateApp/appLogo");
 const initAppLogo = require("../../middleware/app/initAppLogo");
 const requireUniqueName = require("../../middleware/app/requireUniqueName");
 const getAllApps = require("./getApp/getAllApps");
-const getUserWithId = require("../../middleware/auth/getUserWithId");
+const requireAppName = require("../../middleware/app/requireAppName");
 // one liner
 const appWare = [getApp, requireApp];
-const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
-const initAppWare = [requireUser, uploadSingle("logo"), requireUniqueName];
+const updateLogoWare = [requireUser, uploadSingle("logo"), updateAppName];
+const initAppWare = [requireUser, requireAppName, requireUniqueName];
+const appRemovalWare = [requireUser, validateAdmin];
 // load app data
 router.get("/all-apps", getAllApps);
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
 // build app data
-router.post("/init-app", initAppWare, initAppLogo, initApp, getUserWithId);
+router.post("/init-app", updateLogoWare, initAppWare, initAppLogo, initApp);
 // update app
-router.post("/update-app", requireAdmin, updateApp);
+router.post("/update-app", validateAdmin, updateApp);
 router.post("/update-app-name/:appId", updateLogoWare, updateAppLogo);
-router.post("/update-landing-page/:appId", requireAdmin, updateLandingPage);
+router.post("/update-landing-page/:appId", validateAdmin, updateLandingPage);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app
-router.delete("/delete-app/:appId", deleteApp, getUserWithId);
+router.delete("/delete-app/:appId", appRemovalWare, deleteApp);
 
 module.exports = router;
