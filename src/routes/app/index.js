@@ -15,15 +15,16 @@ const requireAdmin = require("../../middleware/app/requireAdminPermission");
 const uploadSingle = require("../../utils/multer/uploadSingle");
 const updateAppLogo = require("./updateApp/appLogo");
 const initAppLogo = require("../../middleware/app/initAppLogo");
+const requireUniqueAppName = require("../../middleware/app/requireUniqueAppName");
 // one liner
 const appWare = [getApp, requireApp];
 const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
-const initAppWare = [requireUser, uploadSingle("logo"), initAppLogo];
+const initAppWare = [requireUniqueAppName, requireUser, uploadSingle("logo")];
 // load app data
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
 // build app data
-router.post("/init-app", initAppWare, initApp, getOwnedApps);
+router.post("/init-app", initAppWare, initAppLogo, initApp, getOwnedApps);
 // update app
 router.post("/update-app", requireAdmin, updateApp);
 router.post("/update-app-name/:appId", updateLogoWare, updateAppLogo);

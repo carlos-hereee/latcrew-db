@@ -1,4 +1,5 @@
 {
+  "appNameTaken": "Appname is already taken try a different name",
   "appNotFound": "App not found",
   "invalidEmailOrPassword": "Invalid username/email or password",
   "invalidCredentails": "One or more credential(s) are wrong",
