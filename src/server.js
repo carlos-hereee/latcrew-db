@@ -10,14 +10,14 @@ const { deserializeUser } = require("./middleware/auth");
 
 // create an express app
 const app = express();
-app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "same-site" }));
+// app.use(helmet({ crossOriginEmbedderPolicy: false }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ credentials: true, origin: [clientUrl, clientUrlAlt] }));
 // serve asset files
 app.use(express.static(__dirname + "public"));
-// app.use("/public", express.static("public"));
 
 // middleware for all functions
 app.use(deserializeUser);

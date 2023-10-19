@@ -10,6 +10,5 @@ module.exports = async (req, res) => {
     req.user.ownedApps = removeFromOwned;
     await req.user.save();
     await removeApp({ appId });
-    res.status(204).end();
   } else res.status(400).json(msg.unauthorizedUser);
 };

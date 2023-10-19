@@ -1,6 +1,7 @@
 const { baseUrl } = require("../../../config.env");
 
 module.exports = (appName, file) => {
+  console.log("file", file);
   return {
     file,
     heading: appName,
