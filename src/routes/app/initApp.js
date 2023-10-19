@@ -9,7 +9,7 @@ const createApp = require("../../db/models/app/createApp");
 module.exports = async (req, res) => {
   try {
     // key variables
-    const appName = req.body.appName;
+    const appName = req.body.appName || req.parms.appName;
     const userId = req.user._id;
     const appId = v4();
     const logo = req.logoId;

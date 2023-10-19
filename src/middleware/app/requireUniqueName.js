@@ -4,7 +4,7 @@ const getApp = require("../../db/models/app/getApp");
 
 module.exports = async (req, res, next) => {
   try {
-    const appName = req.body.appName;
+    const appName = req.body.appName || req.params.appName;
     const app = await getApp({ appName });
     // if app is null appName is not taken
     if (!app) next();
