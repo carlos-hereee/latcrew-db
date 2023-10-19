@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
   try {
     const appName = req.body.appName;
     // appName must exists
-    if (!appName) res.status(400).json(message.missingCredentials).end();
+    if (!appName) return res.status(400).json(message.missingCredentials).end();
     const app = await getApp({ appName });
     // if app is null appName is not taken
     if (!app) next();

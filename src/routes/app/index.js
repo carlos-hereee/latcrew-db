@@ -11,15 +11,15 @@ const getOwnedApps = require("./getApp/getOwnedApps");
 const getAppWithName = require("./getApp/getAppWithName");
 const updateAppName = require("../../middleware/app/matchName");
 const updateLandingPage = require("./updateApp/landingPage");
-const requireAdmin = require("../../middleware/app/requireAdminPermission");
+const requireAdmin = require("../../middleware/app/requireAdmin");
 const uploadSingle = require("../../utils/multer/uploadSingle");
 const updateAppLogo = require("./updateApp/appLogo");
 const initAppLogo = require("../../middleware/app/initAppLogo");
-const requireUniqueAppName = require("../../middleware/app/requireUniqueAppName");
+const requireUniqueName = require("../../middleware/app/requireUniqueName");
 // one liner
 const appWare = [getApp, requireApp];
 const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
-const initAppWare = [requireUniqueAppName, requireUser, uploadSingle("logo")];
+const initAppWare = [requireUniqueName, requireUser, uploadSingle("logo")];
 // load app data
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);

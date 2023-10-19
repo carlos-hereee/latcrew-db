@@ -1,5 +1,7 @@
 const { v4 } = require("uuid");
 const useGenericErrors = require("../../utils/auth/useGenericErrors");
+const formatLogoData = require("../../utils/app/formatLogoData");
+const updateHero = require("../../db/models/hero/updateHero");
 
 module.exports = async (req, res, next) => {
   try {
