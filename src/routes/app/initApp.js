@@ -1,6 +1,5 @@
 const { v4 } = require("uuid");
 const useGenericErrors = require("../../utils/auth/useGenericErrors");
-const formatLogoData = require("../../utils/app/formatLogoData");
 const createApp = require("../../db/models/app/createApp");
 
 // menu items values saved in Hero db
@@ -10,15 +9,12 @@ const createApp = require("../../db/models/app/createApp");
 module.exports = async (req, res, next) => {
   try {
     // key variables
-    const { appName } = req.body;
+    const appName = req.body.appName;
     const userId = req.user._id;
-    const heroId = v4();
     const appId = v4();
-    // declare logo data
-    const logo = formatLogoData(appName, req.file);
-    const id = await updateHero({ heroId }, { ...logo, heroId });
+    const logo = req.logoId;
     // init app
-    const appPayload = { appName, logo: id, appId, ownerId: userId, adminIds: [userId] };
+    const appPayload = { appName, logo, appId, ownerId: userId, adminIds: [userId] };
     const app = await createApp(appPayload);
     // update user   ownedApps
     req.user.ownedApps = [...req.user.ownedApps, app._id];

@@ -6,7 +6,6 @@ const heroSchema = new Schema(
   {
     // key variables
     heroId: { type: String, require: true, unique: true },
-    menuItemId: { type: String },
     // hero detail data
     title: { type: String },
     data: { type: String },
