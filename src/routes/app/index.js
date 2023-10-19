@@ -7,7 +7,6 @@ const deleteApp = require("./deleteApp");
 const initApp = require("./initApp");
 const latest = require("./getApp/latest");
 const updateApp = require("./updateApp/app");
-const getOwnedApps = require("./getApp/getOwnedApps");
 const getAppWithName = require("./getApp/getAppWithName");
 const updateAppName = require("../../middleware/app/matchName");
 const updateLandingPage = require("./updateApp/landingPage");
@@ -17,6 +16,7 @@ const updateAppLogo = require("./updateApp/appLogo");
 const initAppLogo = require("../../middleware/app/initAppLogo");
 const requireUniqueName = require("../../middleware/app/requireUniqueName");
 const getAllApps = require("./getApp/getAllApps");
+const getUserWithId = require("../../middleware/auth/getUserWithId");
 // one liner
 const appWare = [getApp, requireApp];
 const updateLogoWare = [requireAdmin, uploadSingle("logo"), updateAppName];
@@ -26,7 +26,7 @@ router.get("/all-apps", getAllApps);
 router.get("/:appName", requireUser, getAppWithName);
 router.get("/latest/:appId", requireUser, latest);
 // build app data
-router.post("/init-app", initAppWare, initAppLogo, initApp, getOwnedApps);
+router.post("/init-app", initAppWare, initAppLogo, initApp, getUserWithId);
 // update app
 router.post("/update-app", requireAdmin, updateApp);
 router.post("/update-app-name/:appId", updateLogoWare, updateAppLogo);
@@ -34,6 +34,6 @@ router.post("/update-landing-page/:appId", requireAdmin, updateLandingPage);
 // building pages
 router.post("/add-page", appWare, saveAsset, addPage);
 // delete app
-router.delete("/delete-app/:appId", deleteApp, getOwnedApps);
+router.delete("/delete-app/:appId", deleteApp, getUserWithId);
 
 module.exports = router;

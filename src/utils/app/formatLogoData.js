@@ -1,14 +1,14 @@
 const { baseUrl } = require("../../../config.env");
 
 module.exports = (appName, file) => {
-  console.log("file", file);
+  const path = file.path.replace(/\/\//gi, "/");
   return {
     file,
     heading: appName,
     title: appName,
     // TODO: compress image for faster loading
-    small: `${baseUrl}/${file.path}`,
-    url: `${baseUrl}/${file.path}`,
+    small: `${baseUrl}/${path}`,
+    url: `${baseUrl}/${path}`,
     alt: "Industry brand",
   };
 };
